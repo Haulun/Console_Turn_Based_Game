@@ -1,5 +1,5 @@
 namespace JeuConsole {
 	class Entity {
-	
+		
 	};
 }
