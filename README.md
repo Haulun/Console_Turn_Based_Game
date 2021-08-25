@@ -1,3 +1,2 @@
 # jeu_console
-coucou
-test
+ne rien mettre dans le main !!
