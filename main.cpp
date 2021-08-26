@@ -5,8 +5,8 @@ using namespace JeuConsole;
 
 int main() {
 
-	Entity e1 = Entity(100, "e1", 5, 10);
-	Entity e2 = Entity(80, "e2", 5, 12);
+	Entity e1 = Entity(100, "Robert", 5, 10);
+	Entity e2 = Entity(80, "Didier", 5, 12);
 
 	while(!e1.isDead() && !e2.isDead()){
 		e1.giveDmg(e2);
@@ -18,7 +18,7 @@ int main() {
 		std::cout << "life of " << e1.getName() << " is " << e1.getLife() << std::endl << std::endl;
 	}
 
-	std::cout << "end of fight : ";
+	std::cout << "End of fight :\n ";
 	if(e1.isDead()){
 		std::cout << e2.getName() << " won" << std::endl;
 	} else {

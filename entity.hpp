@@ -10,7 +10,7 @@ namespace JeuConsole {
 		bool isDead();
 		std::string getName();
 		int getLife();
-	private:
+	protected:
 		int m_life;
 		std::string m_name;
 		int m_shield;
