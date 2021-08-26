@@ -12,16 +12,16 @@ namespace JeuConsole {
 		Entity(std::string name, Category type);
 		Entity(int life, std::string name, int shield, int atk, Category type);
 		~Entity();
-		void giveDmg(Entity& cible);
+		void giveDmg(Entity& cible) const;
 		void takeDmg(int atk);
-		bool isDead();
+		bool isDead() const;
 		
 
-		std::string getName();
-		int getLife();
-		int getAtk();
-		int getShield();
-		int getType();
+		std::string getName() const;
+		int getLife() const;
+		int getAtk() const;
+		int getShield() const;
+		int getType() const;
 
 
 
