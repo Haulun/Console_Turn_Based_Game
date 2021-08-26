@@ -1,27 +1,20 @@
 #include "entity.hpp"
 #include "knight.hpp"
 #include "mage.hpp"
+#include "troll.hpp"
+#include "goblin.hpp"
+
 #include <iostream>
 
 using namespace JeuConsole;
 
 int main() {
 
-	Mage e1 = Mage("Robert");
-	Knight e2 = Knight("Didier");
+	Mage robert = Mage("Robert");
+	Knight didier = Knight("Didier");
+	Troll zarkof = Troll("Zarkof");
+	Goblin coffin = Goblin("Coffin");
 
-	std::cout << e1.getName() << std::endl;
-	std::cout << e1.getType() << std::endl;
-	std::cout << e1.getShield() << std::endl;
-	std::cout << e1.getLife() << std::endl;
-	std::cout << e1.getAtk() << "\n" << std::endl;
-
-
-
-	std::cout << e2.getName() << std::endl;
-	std::cout << e2.getType() << std::endl;
-	std::cout << e2.getShield() << std::endl;
-	std::cout << e2.getLife() << std::endl;
-	std::cout << e2.getAtk() << "\n" << std::endl;
+	
 
 }
