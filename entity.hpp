@@ -1,3 +1,6 @@
+#ifndef DEF_ENTITY
+#define DEF_ENTITY
+
 #include <string>
 
 namespace JeuConsole {
@@ -18,3 +21,4 @@ namespace JeuConsole {
 		int m_atk;
 	};
 }
+#endif

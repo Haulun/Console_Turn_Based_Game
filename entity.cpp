@@ -1,6 +1,3 @@
-#ifndef DEF_ENTITY
-#define DEF_ENTITY
-
 #include "entity.hpp"
 
 namespace JeuConsole {
@@ -34,4 +31,3 @@ namespace JeuConsole {
 		return m_life;
 	}
 }
-#endif
