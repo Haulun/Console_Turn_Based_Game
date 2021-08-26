@@ -30,7 +30,7 @@ namespace JeuConsole {
 
 	Entity::~Entity() {};
 
-	void Entity::giveDmg(Entity& cible) {
+	void Entity::giveDmg(Entity& cible) const{
 		cible.takeDmg(m_atk);
 	}
 
@@ -41,31 +41,31 @@ namespace JeuConsole {
 		}
 	}
 
-	bool Entity::isDead() {
+	bool Entity::isDead() const {
 		return m_life == 0;
 	}
 
 
 	// get functions 
 
-	std::string Entity::getName() {
+	std::string Entity::getName() const{
 		return m_name;
 	}
 
-	int Entity::getLife() {
+	int Entity::getLife()  const{
 		return m_life;
 	}
 
-	int Entity::getAtk(){
+	int Entity::getAtk() const{
 		return m_atk;
 	}
 	
 
-	int Entity::getShield(){
+	int Entity::getShield() const{
 		return m_shield;
 	}
 
-	int Entity::getType(){
+	int Entity::getType() const{
 		return m_type;
 	}
 	
