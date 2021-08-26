@@ -2,6 +2,7 @@
 #define DEF_ENTITY
 
 #include <string>
+#include <cstdlib>
 
 namespace JeuConsole {
 	enum Category { KNIGHT = 0, MAGE, GOBLIN, TROLL };
@@ -14,13 +15,14 @@ namespace JeuConsole {
 		~Entity();
 		void giveDmg(Entity& cible) const;
 		void takeDmg(int atk);
+		virtual void absorbDmg() {};
 		bool isDead() const;
 		
 
 		std::string getName() const;
 		int getLife() const;
 		int getAtk() const;
-		int getShield() const;
+		double getShield() const;
 		int getType() const;
 
 
@@ -28,7 +30,7 @@ namespace JeuConsole {
 	protected:
 		int m_life;
 		std::string m_name;
-		int m_shield;
+		double m_shield;
 		int m_atk;
 		int m_type;
 	};

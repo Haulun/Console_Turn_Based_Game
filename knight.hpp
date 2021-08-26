@@ -8,6 +8,7 @@ namespace JeuConsole {
 	class Knight : public Entity {
 	public:
 		Knight(std::string name);
+		virtual void absorbDmg();
 	};
 }
 #endif

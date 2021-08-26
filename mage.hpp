@@ -8,6 +8,7 @@ namespace JeuConsole {
 	class Mage : public Entity {
 	public:
 		Mage(std::string name);
+		virtual void absorbDmg();
 	};
 }
 #endif

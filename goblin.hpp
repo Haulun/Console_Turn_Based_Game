@@ -8,6 +8,7 @@ namespace JeuConsole {
 	class Goblin : public Entity {
 	public:
 		Goblin(std::string name);
+		virtual void absorbDmg();
 	};
 }
 #endif
