@@ -8,6 +8,7 @@ namespace JeuConsole {
 	class Troll : public Entity {
 	public:
 		Troll(std::string name);
+		virtual void absorbDmg();
 	};
 }
 #endif

@@ -6,7 +6,7 @@ namespace JeuConsole {
 			case KNIGHT:
 				m_life=100;
 				m_atk=12;
-				m_shield=5;
+				m_shield=1;
 				break;
 			case MAGE:
 				m_life=90;
@@ -16,12 +16,12 @@ namespace JeuConsole {
 			case GOBLIN:
 				m_life=50;
 				m_atk=3;
-				m_shield=0;
+				m_shield=1;
 				break;
 			case TROLL:
 				m_life=150;
 				m_atk=4;
-				m_shield=0;
+				m_shield=1;
 				break;
 		}
 	}
@@ -35,16 +35,17 @@ namespace JeuConsole {
 	}
 
 	void Entity::takeDmg(int atk) {
-		m_life -= atk;
+		m_life = m_life - (m_atk * m_shield);
 		if (m_life < 0) {
 			m_life = 0;
 		}
+
+		m_shield = 1;
 	}
 
 	bool Entity::isDead() const {
 		return m_life == 0;
 	}
-
 
 	// get functions 
 
@@ -61,7 +62,7 @@ namespace JeuConsole {
 	}
 	
 
-	int Entity::getShield() const{
+	double Entity::getShield() const{
 		return m_shield;
 	}
 

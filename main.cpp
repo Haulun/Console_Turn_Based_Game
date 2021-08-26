@@ -6,8 +6,6 @@
 
 
 #include <cstdlib>
-#include <ctime>
-#include <random>
 
 #include <iostream>
 
@@ -19,7 +17,7 @@ int main() {
 
 
 	cout << "Choisissez une classe : \nM pour Mage \nK pour Knight" << endl;			
-	char choice;
+	char choice = 'a';
 
 	Entity *player(0);
 	Entity *enemy(0);
@@ -49,9 +47,9 @@ int main() {
 		
 		// create enemy if enemy is dead
 		if(isEnemyDead){
-			int random = rand() % 2;
+			int random = rand() % 3;
 
-			if(random == 1){
+			if(random < 1){
 				enemy = new Troll("Troll"); 
 				cout << "attention un troll apparait !" << endl << endl;
 			}
@@ -66,7 +64,7 @@ int main() {
 		// attack
 		char playerInput;
 		
-		cout << "Attaquer! : appuyer sur a, Se défendre : appuyer sur s" << endl << endl;
+		cout << "Attaquer! : appuyer sur a, Se defendre : appuyer sur s" << endl << endl;
 		cin >> playerInput;
 
 		if(playerInput == 'a'){	
@@ -76,7 +74,8 @@ int main() {
 
 		}
 		else if(playerInput == 's'){
-			cout << "vous vous défendez un peu pas trop" << endl << endl;
+			player->absorbDmg();
+			cout << "vous vous défendez" << endl << endl;
 		}
 		else{
 			cout << "vous ratez votre coup" << endl << endl;
@@ -94,13 +93,12 @@ int main() {
 
 		}
 
+		
+
 	}
 
-	cout << "game over quel dommage :(" << endl;
+	cout << "game over, quel dommage :(" << endl;
 
-
-
-	// todo : penser à delete *player / *enemy
 	delete enemy;
 	delete player;
 
