@@ -35,7 +35,7 @@ namespace JeuConsole {
 	}
 
 	void Entity::takeDmg(int atk) {
-		m_life = m_life - (m_atk * m_shield);
+		m_life = m_life - (atk * m_shield);
 		if (m_life < 0) {
 			m_life = 0;
 		}

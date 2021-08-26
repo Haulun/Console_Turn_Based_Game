@@ -69,6 +69,8 @@ int main() {
 
 		if(playerInput == 'a'){	
 			player->giveDmg(*enemy);
+			cout << player->getLife() << endl;;
+			cout << enemy->getLife() << endl;
 			cout << "vous attaquez votre ennemi ! "<< endl;
 			cout << "il lui reste " << enemy->getLife() << " points de vie !" << endl << endl; 
 
@@ -92,15 +94,10 @@ int main() {
 			cout << "points de vie restant : " << player->getLife() << endl << endl;;
 
 		}
-
-		
-
 	}
 
 	cout << "game over, quel dommage :(" << endl;
 
 	delete enemy;
 	delete player;
-
-
 }
