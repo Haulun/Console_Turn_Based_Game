@@ -47,8 +47,8 @@ int main() {
 	while(!player->isDead()){
 
 		if(isEnemyDead){
-			int rand = rand() % 2;
-			if(rand == 0){
+			int random = rand() % 2;
+			if(random == 0){
 				enemy = new Troll("Troll"); 
 			}
 			else{
