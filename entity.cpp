@@ -4,7 +4,9 @@
 #include "entity.hpp"
 
 namespace JeuConsole {
-	Entity::Entity(std::string name) : m_name(name) {}
+	Entity::Entity(std::string name) : m_name(name) {
+		
+	}
 	Entity::Entity(int life, std::string name, int shield, int atk) : m_life(life), m_name(name), m_shield(shield), m_atk(atk) {}
 
 	Entity::~Entity() {};

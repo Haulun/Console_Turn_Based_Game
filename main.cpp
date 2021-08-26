@@ -6,8 +6,8 @@ using namespace JeuConsole;
 
 int main() {
 
-	Entity e1 = Entity(0, "Robert", 0, 0);
-	Entity e2 = Entity(0, "Didier", 0, 0);
+	Knight e1 = Knight("Robert");
+	Knight e2 = Knight("Didier");
 
 	while(!e1.isDead() && !e2.isDead()){
 		e1.giveDmg(e2);
