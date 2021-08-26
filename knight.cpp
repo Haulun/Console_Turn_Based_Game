@@ -1,5 +1,5 @@
 #include "knight.hpp"
 
 namespace JeuConsole {
-	Knight::Knight(std::string name) : Entity(name) {}
+	Knight::Knight(std::string name) : Entity(name, KNIGHT) {}
 }
