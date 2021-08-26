@@ -3,6 +3,7 @@
 namespace JeuConsole {
 	class Entity {
 	public:
+		Entity(std::string name);
 		Entity(int life, std::string name, int shield, int atk);
 		~Entity();
 		void giveDmg(Entity& cible);

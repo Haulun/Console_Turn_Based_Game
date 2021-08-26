@@ -1,9 +1,13 @@
+#ifndef DEF_ENTITY
+#define DEF_ENTITY
+
 #include "entity.hpp"
 
 namespace JeuConsole {
+	Entity::Entity(std::string name) : m_name(name) {}
 	Entity::Entity(int life, std::string name, int shield, int atk) : m_life(life), m_name(name), m_shield(shield), m_atk(atk) {}
 
-	Entity::~Entity() {}
+	Entity::~Entity() {};
 
 	void Entity::giveDmg(Entity& cible) {
 		cible.takeDmg(m_atk);
@@ -28,3 +32,4 @@ namespace JeuConsole {
 		return m_life;
 	}
 }
+#endif
