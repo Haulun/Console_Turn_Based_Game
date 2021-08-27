@@ -2,10 +2,10 @@
 #define DEF_MAGE
 
 #include <string>
-#include "entity.hpp"
+#include "hero.hpp"
 
 namespace JeuConsole {
-	class Mage : public Entity {
+	class Mage : public Hero {
 	public:
 		Mage(std::string name);
 		virtual void absorbDmg();

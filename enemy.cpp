@@ -8,6 +8,9 @@ namespace JeuConsole {
 		return m_giveXp;
 	}
 
+	int Enemy::getXp() const {
+		return 0;
+	}
 
 }
 

@@ -2,10 +2,10 @@
 #define DEF_KNIGHT
 
 #include <string>
-#include "entity.hpp"
+#include "hero.hpp"
 
 namespace JeuConsole {
-	class Knight : public Entity {
+	class Knight : public Hero {
 	public:
 		Knight(std::string name);
 		virtual void absorbDmg();

@@ -9,4 +9,8 @@ namespace JeuConsole {
 		m_shield = m_shieldMax;
 	}
 
+	/*int Troll::getXp() const {
+		return 0;
+	}*/
+
 }
