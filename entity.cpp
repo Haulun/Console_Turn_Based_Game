@@ -24,6 +24,8 @@ namespace JeuConsole {
 				m_shield=1;
 				break;
 		}
+
+		m_lifeMax = m_life;
 	}
 
 	Entity::Entity(int life, std::string name, int shield, int atk, Category type) : m_life(life), m_name(name), m_shield(shield), m_atk(atk), m_type(type) {}
@@ -45,6 +47,15 @@ namespace JeuConsole {
 
 	bool Entity::isDead() const {
 		return m_life == 0;
+	}
+
+	void Entity::heal(){
+		m_life = m_life*1.5;
+
+		if(m_life > m_lifeMax){
+			m_life = m_lifeMax;
+		}
+
 	}
 
 	// get functions 
