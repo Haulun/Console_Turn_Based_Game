@@ -14,7 +14,6 @@ using namespace std;
 int main() {
 
 
-
 	cout << "Choisissez une classe : \nm pour Mage \nk pour Knight" << endl;			
 	char choice = 'a';
 
@@ -97,7 +96,7 @@ int main() {
 			int random = rand() % 3;
 			if (random == 0 && enemy->getShield() == 1) {
 				enemy->absorbDmg();
-				cout << "L'ennemi se prepare à absorber la prochaine attaque" << endl << endl;
+				cout << "L'ennemi se prepare a absorber la prochaine attaque" << endl << endl;
 			}
 			else {
 				enemy->giveDmg(*player);

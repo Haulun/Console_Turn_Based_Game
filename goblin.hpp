@@ -2,10 +2,10 @@
 #define DEF_GOBLIN
 
 #include <string>
-#include "entity.hpp"
+#include "enemy.hpp"
 
 namespace JeuConsole {
-	class Goblin : public Entity {
+	class Goblin : public Enemy {
 	public:
 		Goblin(std::string name);
 		virtual void absorbDmg();
