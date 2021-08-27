@@ -4,7 +4,6 @@
 #include "troll.hpp"
 #include "goblin.hpp"
 
-
 #include <cstdlib>
 
 #include <iostream>
@@ -88,11 +87,11 @@ int main() {
 			cout << "votre ennemi est mort dans d'atroces souffrances !" << endl << endl;
 
 		} else {
-
+			
 			enemy->giveDmg(*player);
 			cout << "l'ennemi fonce sur vous, vous perdez des points de vie !" << endl;
-			cout << "points de vie restant : " << player->getLife() << endl << endl;;
-
+			cout << "points de vie restant : " << player->getLife() << endl << endl;
+			
 		}
 	}
 
