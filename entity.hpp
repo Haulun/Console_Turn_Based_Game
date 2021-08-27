@@ -17,6 +17,7 @@ namespace JeuConsole {
 		void takeDmg(int atk);
 		virtual void absorbDmg() {};
 		bool isDead() const;
+		void heal();
 		
 
 		std::string getName() const;
@@ -33,6 +34,7 @@ namespace JeuConsole {
 		double m_shield;
 		int m_atk;
 		int m_type;
+		int m_lifeMax;
 	};
 }
 #endif

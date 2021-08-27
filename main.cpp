@@ -63,7 +63,7 @@ int main() {
 		// attack
 		char playerInput;
 		
-		cout << "Pour attaquer : appuyer sur a. Pour vous defendre : appuyer sur s" << endl << endl;
+		cout << "Pour attaquer : appuyer sur a.\n Pour vous defendre : appuyer sur s.\n Pour vous soigner : appuyer sur h." << endl << endl;
 		cin >> playerInput;
 
 		if(playerInput == 'a'){	
@@ -77,6 +77,12 @@ int main() {
 		else if(playerInput == 's'){
 			player->absorbDmg();
 			cout << "vous vous defendez" << endl << endl;
+		}
+		else if(playerInput == 'h'){
+			player->heal();
+			cout << "vous vous soignez" << endl;
+			cout << "vous avez maintenant " << player->getLife() << " points de vie !" << endl << endl;
+
 		}
 		else{
 			cout << "vous ratez votre coup" << endl << endl;
