@@ -4,7 +4,6 @@
 #include "troll.hpp"
 #include "goblin.hpp"
 
-
 #include <cstdlib>
 
 #include <iostream>
@@ -47,9 +46,9 @@ int main() {
 		
 		// create enemy if enemy is dead
 		if(isEnemyDead){
-			int random = rand() % 3;
+			int random = rand() % 100;
 
-			if(random == 0){
+			if(random < 37){
 				enemy = new Troll("Troll"); 
 				cout << "attention un troll apparait !" << endl << endl;
 			}
@@ -64,13 +63,13 @@ int main() {
 		// attack
 		char playerInput;
 		
-		cout << "Pour attaquer : appuyer sur a.\n Pour vous defendre : appuyer sur s.\n Pour vous soigner : appuyer sur h." << endl << endl;
+		cout << "Pour attaquer : appuyer sur a.\n";
+		cout << "Pour vous defendre : appuyer sur s.\n";
+		cout << "Pour vous soigner : appuyer sur h." << endl << endl;
 		cin >> playerInput;
 
 		if(playerInput == 'a'){	
 			player->giveDmg(*enemy);
-			cout << player->getLife() << endl;;
-			cout << enemy->getLife() << endl;
 			cout << "vous attaquez votre ennemi ! "<< endl;
 			cout << "il lui reste " << enemy->getLife() << " points de vie !" << endl << endl; 
 
@@ -94,11 +93,18 @@ int main() {
 			cout << "votre ennemi est mort dans d'atroces souffrances !" << endl << endl;
 
 		} else {
-
-			enemy->giveDmg(*player);
-			cout << "l'ennemi fonce sur vous, vous perdez des points de vie !" << endl;
-			cout << "points de vie restant : " << player->getLife() << endl << endl;;
-
+			
+			int random = rand() % 3;
+			if (random == 0 && enemy->getShield() == 1) {
+				enemy->absorbDmg();
+				cout << "L'ennemi se prepare à absorber la prochaine attaque" << endl << endl;
+			}
+			else {
+				enemy->giveDmg(*player);
+				cout << "l'ennemi fonce sur vous, vous perdez des points de vie !" << endl;
+				cout << "points de vie restant : " << player->getLife() << endl << endl;
+			}
+			
 		}
 	}
 
