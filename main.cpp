@@ -8,6 +8,8 @@
 
 #include <cstdlib>
 #include <iostream>
+#include <istream>
+
 
 using namespace JeuConsole;
 using namespace std;
@@ -15,36 +17,45 @@ using namespace std;
 int main() {
 
 
-	cout << "Choisissez une classe : \nm pour Mage \nk pour Knight" << endl;			
-	char choice = 'a';
+	cout << "Choisissez une classe : \n";
+	cout << " - \"m\" pour Mage \n";
+	cout << " - \"k\" pour Knight" << endl << endl;
+
+	string choice;
 
 	Entity *player(0);
 	Entity *enemy(0);
 
 
-	while(choice != 'm' && choice != 'k'){
+	while(choice != "m" && choice != "k"){
+
+		cout << "Votre choix : ";
 		cin >> choice;
-		if(choice != 'm' && choice != 'k'){
-			cout << "caractere non valide" << endl;
+
+		if(choice != "m" && choice != "k"){
+			cout << endl << "Caractere non valide" << endl << endl;
 		}
 	}
 
-	if(choice == 'm'){
-		cout << "Vous avez choisi Merlin le mage !" << endl;
+	if(choice == "m"){
+		cout << endl << "Vous avez choisi Merlin le mage !" << endl << endl;
 		player = new Mage("Merlin");
 
 	}
 	else{
-		cout << "Vous avez choisi Arthur le chevalier !" << endl;
-		player = new Knight("Arthur");
+		cout << endl << "Vous avez choisi Jeanne la chevaleresse !" << endl << endl;
+		player = new Knight("Jeanne");
 	}
 
 	bool isEnemyDead = true;
 	bool leveledUp = false;
-	int stage = 0;
-
+	int stage = 1;
+	int round = 1;
+	int deadMob = 0;
 
 	while(!player->isDead()){
+
+		cout << "==========> TOUR " << round << " <==========" << endl << endl;
 
 		//levelup + destroying + creation
 		if(isEnemyDead){
@@ -52,13 +63,15 @@ int main() {
 			if(leveledUp) {
 				std::string playerInput;
 
-				cout << "Vous etes maintenant level " << player->getLevel() << " ! Bravo *clap* *clap* !" << endl;
-				cout << "choississez ce que vous voulez augmenter" << endl;
-				cout << "\"life\" pour augmenter la vie" << endl;
-				cout << "\"shield\" pour augmenter le bouclier" << endl;
-				cout << "\"attack\" pour augmenter l'attaque" << endl;
+				cout << "Vous etes maintenant level " << player->getLevel() << " ! Bravo *clap* *clap* !" << endl << endl;
+				cout << "Choississez ce que vous voulez augmenter :" << endl;
+				cout << " - \"life\" pour augmenter la vie de 10." << endl;
+				cout << " - \"shield\" pour augmenter le bouclier de 5%." << endl;
+				cout << " - \"attack\" pour augmenter l'attaque de 2." << endl << endl;
 				while (playerInput != "life" && playerInput != "shield" && playerInput != "attack") {
+					cout << "Votre choix : ";
 					cin >> playerInput;
+					cout << endl;
 					if (playerInput == "life") {
 						player->incLife();
 						cout << "Vous avez maintenant " << player->getLife() << " points de vie !" << endl << endl;
@@ -74,7 +87,7 @@ int main() {
 					}
 					else
 					{
-						cout << "quoi ?" << endl << endl;
+						cout << "Quoi ?" << endl << endl;
 					}
 				}
 
@@ -89,54 +102,59 @@ int main() {
 
 			if(random < 37){
 				enemy = new Troll("Troll", stage); 
-				cout << "attention un troll apparait !" << endl << endl;
+				cout << "/!\\ Attention un troll apparait /!\\" << endl << endl;
 			}
 			else{
 				enemy = new Goblin("Goblin", stage);
-				cout << "attention un goblin apparait !" << endl << endl;
+				cout << "/!\\ Attention un goblin apparait /!\\" << endl << endl;
 			}
 			isEnemyDead = false;
 
 		}
 
 		// attacking / defending / healing
-		char playerInput;
+		string playerInput;
 		
-		cout << "Pour attaquer : appuyer sur a.\n";
-		cout << "Pour vous defendre : appuyer sur s.\n";
-		cout << "Pour vous soigner : appuyer sur h." << endl << endl;
+		cout << "Choisissez une action :" << endl;
+		cout << " - \"a\" pour attaquer.\n";
+		cout << " - \"s\" pour vous defendre.\n";
+		cout << " - \"h\" pour vous soigner." << endl << endl;
+
+		cout << "Votre choix : ";
 		cin >> playerInput;
-
-		if(playerInput == 'a'){	
+		cout << endl;
+		if(playerInput == "a"){	
 			player->giveDmg(*enemy);
-			cout << "vous attaquez votre ennemi ! "<< endl;
-			cout << "il lui reste " << enemy->getLife() << " points de vie !" << endl << endl; 
+			cout << "[ " <<player->getName() << " => " << enemy->getName() <<" ] Vous attaquez votre ennemi ! "<< endl;
 
 		}
-		else if(playerInput == 's'){
+		else if(playerInput == "s"){
 			player->absorbDmg();
-			cout << "vous vous defendez. Vous prenez " << player->getShield() * 100 << "% des degats totaux" << endl << endl;
+			cout << "[ " << player->getName() << " => " << player->getName() << " ] Vous vous defendez. ";
+			cout << "Vous prenez " << player->getShield() * 100 << "% des degats totaux !" << endl << endl;
 		}
-		else if(playerInput == 'h'){
+		else if(playerInput == "h"){
 			player->heal();
-			cout << "vous vous soignez" << endl;
-			cout << "vous avez maintenant " << player->getLife() << " points de vie !" << endl << endl;
+			cout << "[ " << player->getName() << " => " << player->getName() << " ] Vous vous soignez.";
+			cout << " Vous avez maintenant " << player->getLife() << " points de vie !" << endl << endl;
 
 		}
 		else {
-			cout << "vous ratez votre coup" << endl << endl;
+			cout << "Vous ratez votre coup..." << endl << endl;
 		}
 
 		if(enemy->isDead()) {
 			isEnemyDead = true;
 			leveledUp = player->takeXp(enemy->getGiveXp());
-			cout << "votre ennemi est mort dans d'atroces souffrances !" << endl;
+			cout << "Votre ennemi est mort dans d'atroces souffrances !" << endl;
 			cout << "Vous avez : " << player->getXp() << " d'xp" << endl << endl;
+
+			deadMob += 1;
 
 
 			if(leveledUp && player->getLevel()%5==0 && player->getLevel() != 0){
 				stage += 1;
-				cout << "vous passez à l'étage suivant" << endl << endl;
+				cout << "Bravo ! Vous passez à l'etage suivant" << endl << endl;
 			}
 
 		} 
@@ -144,18 +162,29 @@ int main() {
 			int random = rand() % 3;
 			if (random == 0 && enemy->getShield() == 1) {
 				enemy->absorbDmg();
-				cout << "L'ennemi se prepare a absorber la prochaine attaque" << endl << endl;
+				cout << "[ " << enemy->getName() << " => " << enemy->getName() << " ] L'ennemi se prepare a absorber la prochaine attaque !" << endl << endl;
 			}
 			else {
 				enemy->giveDmg(*player);
-				cout << "l'ennemi fonce sur vous, vous perdez des points de vie !" << endl;
-				cout << "points de vie restant : " << player->getLife() << endl << endl;
+				cout << "[ " << player->getName() << " <= " << enemy->getName() << " ] L'ennemi fonce sur vous, vous perdez des points de vie !" << endl << endl;
 			}
 			
 		}
+
+
+		// display life
+		cout  << enemy->getName() << " : " << enemy->getLife() << " points de vie !" <<  endl; 
+		cout  << player->getName() << " : " << player->getLife() << " points de vie !" << endl << endl; 
+
+		round += 1;
 	}
 
-	cout << "game over, quel dommage :(" << endl;
+		cout << "==========> Fin du jeu <==========" << endl << endl;
+
+		cout << "Etage atteint : " << stage << endl;
+		cout << "Niveau atteint : " << player->getLevel() << endl;
+		cout << "Nombre de mobs tués : " << deadMob << endl;
+
 
 	//Delete the player and the last enemy if the player dies
 	delete enemy;
