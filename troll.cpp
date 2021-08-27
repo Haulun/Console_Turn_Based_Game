@@ -6,7 +6,7 @@ namespace JeuConsole {
 	}
 	
 	void Troll::absorbDmg() {
-		m_shield = 0.9;
+		m_shield = m_shieldMax;
 	}
 
 }

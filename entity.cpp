@@ -7,21 +7,25 @@ namespace JeuConsole {
 				m_life=100;
 				m_atk=12;
 				m_shield=1;
+				m_shieldMax = 0.5;
 				break;
 			case MAGE:
 				m_life=90;
 				m_atk=13;
 				m_shield=1;
+				m_shieldMax = 0.3;
 				break;
 			case GOBLIN:
 				m_life=50;
 				m_atk=3;
 				m_shield=1;
+				m_shieldMax = 0.65;
 				break;
 			case TROLL:
 				m_life=150;
 				m_atk=4;
 				m_shield=1;
+				m_shieldMax = 0.9
 				break;
 		}
 

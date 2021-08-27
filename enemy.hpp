@@ -13,7 +13,7 @@ namespace JeuConsole {
 		Enemy(std::string name, Category type);
 		~Enemy(){}
 
-		int getGiveXp() const;
+		virtual int getGiveXp() const;
 
 	protected:
 		int m_giveXp;

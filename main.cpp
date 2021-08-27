@@ -3,9 +3,10 @@
 #include "mage.hpp"
 #include "troll.hpp"
 #include "goblin.hpp"
+#include "hero.hpp"
+#include "enemy.hpp"
 
 #include <cstdlib>
-
 #include <iostream>
 
 using namespace JeuConsole;
@@ -39,12 +40,49 @@ int main() {
 	}
 
 	bool isEnemyDead = true;
+	bool leveledUp = false;
 
 	while(!player->isDead()){
 
-		
-		// create enemy if enemy is dead
+		//levelup + destroying + creation
 		if(isEnemyDead){
+			//If player leveled up
+			if(leveledUp) {
+				std::string playerInput;
+
+				cout << "Vous etes maintenant level " << player->getLevel() << " ! Bravo *clap* *clap* !" << endl;
+				cout << "choississez ce que vous voulez augmenter" << endl;
+				cout << "\"life\" pour augmenter la vie" << endl;
+				cout << "\"shield\" pour augmenter le bouclier" << endl;
+				cout << "\"attack\" pour augmenter l'attaque" << endl;
+				while (playerInput != "life" && playerInput != "shield" && playerInput != "attack") {
+					cin >> playerInput;
+					if (playerInput == "life") {
+						player->incLife();
+						cout << "Vous avez maintenant " << player->getLife() << " points de vie !" << endl << endl;
+						
+					}
+					else if (playerInput == "shield") {
+						player->incShield();
+						cout << "Vous avez maintenant " << player->getShield() << " de defense !" << endl << endl;
+					}
+					else if(playerInput == "attack") {
+						player->incAtk();
+						cout << "Vous avez maintenant " << player->getAtk() << " d'attaque !" << endl << endl;
+					}
+					else
+					{
+						cout << "quoi ?" << endl << endl;
+					}
+				}
+
+				leveledUp = false;
+			}
+
+			//We destroy the object that aim the pointer after the enemy dies (IMPORTANT)
+			delete enemy;
+			
+			//Create enemy : 2/5 -> Troll , 3/5 -> Gobelin
 			int random = rand() % 100;
 
 			if(random < 37){
@@ -59,7 +97,7 @@ int main() {
 
 		}
 
-		// attack
+		// attacking / defending / healing
 		char playerInput;
 		
 		cout << "Pour attaquer : appuyer sur a.\n";
@@ -83,16 +121,18 @@ int main() {
 			cout << "vous avez maintenant " << player->getLife() << " points de vie !" << endl << endl;
 
 		}
-		else{
+		else {
 			cout << "vous ratez votre coup" << endl << endl;
 		}
 
-		if(enemy->isDead()){
+		if(enemy->isDead()) {
 			isEnemyDead = true;
-			cout << "votre ennemi est mort dans d'atroces souffrances !" << endl << endl;
+			leveledUp = player->takeXp(enemy->getGiveXp());
+			cout << "votre ennemi est mort dans d'atroces souffrances !" << endl;
+			cout << "Vous avez : " << player->getXp() << " d'xp" << endl << endl;
 
-		} else {
-			
+		} 
+		else {
 			int random = rand() % 3;
 			if (random == 0 && enemy->getShield() == 1) {
 				enemy->absorbDmg();
@@ -109,6 +149,7 @@ int main() {
 
 	cout << "game over, quel dommage :(" << endl;
 
+	//Delete the player and the last enemy if the player dies
 	delete enemy;
 	delete player;
 }
