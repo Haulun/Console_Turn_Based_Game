@@ -16,7 +16,7 @@ int main() {
 
 
 
-	cout << "Choisissez une classe : \nM pour Mage \nK pour Knight" << endl;			
+	cout << "Choisissez une classe : \nm pour Mage \nk pour Knight" << endl;			
 	char choice = 'a';
 
 	Entity *player(0);
@@ -26,7 +26,7 @@ int main() {
 	while(choice != 'm' && choice != 'k'){
 		cin >> choice;
 		if(choice != 'm' && choice != 'k'){
-			cout << "caractère non valide" << endl;
+			cout << "caractere non valide" << endl;
 		}
 	}
 
@@ -49,7 +49,7 @@ int main() {
 		if(isEnemyDead){
 			int random = rand() % 3;
 
-			if(random < 1){
+			if(random == 0){
 				enemy = new Troll("Troll"); 
 				cout << "attention un troll apparait !" << endl << endl;
 			}
@@ -77,7 +77,7 @@ int main() {
 		}
 		else if(playerInput == 's'){
 			player->absorbDmg();
-			cout << "vous vous défendez" << endl << endl;
+			cout << "vous vous defendez" << endl << endl;
 		}
 		else{
 			cout << "vous ratez votre coup" << endl << endl;
