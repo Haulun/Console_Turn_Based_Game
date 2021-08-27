@@ -1,7 +1,7 @@
 #include "enemy.hpp"
 
 namespace JeuConsole {
-	Enemy::Enemy(std::string name, Category type, int stage) : Entity(name, type, stage) {}
+	Enemy::Enemy(std::string name, Category type, int stage) : Entity(name, type, stage - 1) {}
 
 
 	int Enemy::getGiveXp() const {
