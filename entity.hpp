@@ -26,7 +26,7 @@ namespace JeuConsole {
 		virtual void incAtk() {}
 		virtual int getXp() const = 0;
 		virtual bool takeXp(int xp) { return false; }
-		virtual int getLevel() { return 0; }
+		virtual int getLevel() const = 0;
 
 		//Enemy function
 		virtual int getGiveXp() const { return 0; }
@@ -47,7 +47,7 @@ namespace JeuConsole {
 		int m_atk;
 		int m_type;
 		int m_lifeMax;
-		int m_shieldMax;
+		double m_shieldMax;
 	};
 }
 #endif

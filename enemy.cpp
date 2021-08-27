@@ -12,5 +12,9 @@ namespace JeuConsole {
 		return 0;
 	}
 
+	int Enemy::getLevel() const {
+		return 0;
+	}
+
 }
 

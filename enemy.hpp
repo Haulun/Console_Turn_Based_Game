@@ -15,6 +15,7 @@ namespace JeuConsole {
 
 		virtual int getGiveXp() const;
 		virtual int getXp() const;
+		virtual int getLevel() const ;
 
 	protected:
 		int m_giveXp;
