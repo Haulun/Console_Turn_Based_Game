@@ -13,13 +13,12 @@ namespace JeuConsole {
 	public:
 		Hero(std::string name, Category type);
 		~Hero(){}
+		
+		void levelUp();
 
 		virtual int getXp() const;
 		virtual int getLevel() const;
-
 		virtual bool takeXp(int xp);
-		void levelUp();
-
 		virtual void incLife();
 		virtual void incShield();
 		virtual void incAtk();

@@ -21,13 +21,13 @@ namespace JeuConsole {
 		void heal();
 
 		//Hero function
-		
 		virtual void incLife() {}
 		virtual void incShield() {}
 		virtual void incAtk() {}
 		virtual int getXp() const = 0;
 		virtual bool takeXp(int xp) { return false; }
 		virtual int getLevel() const = 0;
+		virtual bool healable();
 
 		//Enemy function
 		virtual int getGiveXp() const { return 0; }
@@ -38,6 +38,10 @@ namespace JeuConsole {
 		int getAtk() const;
 		double getShield() const;
 		int getType() const;
+		int getMana() const;
+
+		//Les sets
+		int setMana(int mana);
 
 
 
@@ -49,6 +53,7 @@ namespace JeuConsole {
 		int m_type;
 		int m_lifeMax;
 		double m_shieldMax;
+		int m_mana;
 	};
 }
 #endif
