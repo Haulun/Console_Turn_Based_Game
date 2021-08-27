@@ -64,7 +64,7 @@ int main() {
 		// attack
 		char playerInput;
 		
-		cout << "Attaquer! : appuyer sur a, Se defendre : appuyer sur s" << endl << endl;
+		cout << "Pour attaquer : appuyer sur a. Pour vous defendre : appuyer sur s" << endl << endl;
 		cin >> playerInput;
 
 		if(playerInput == 'a'){	
