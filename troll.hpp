@@ -2,10 +2,10 @@
 #define DEF_TROLL
 
 #include <string>
-#include "entity.hpp"
+#include "enemy.hpp"
 
 namespace JeuConsole {
-	class Troll : public Entity {
+	class Troll : public Enemy {
 	public:
 		Troll(std::string name);
 		virtual void absorbDmg();
