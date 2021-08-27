@@ -8,24 +8,28 @@ namespace JeuConsole {
 				m_atk=12;
 				m_shield=1;
 				m_shieldMax = 0.5;
+				m_mana = 90;
 				break;
 			case MAGE:
 				m_life=90;
 				m_atk=13;
 				m_shield=1;
 				m_shieldMax = 0.3;
+				m_mana = 100;
 				break;
 			case GOBLIN:
 				m_life=50;
 				m_atk=3;
 				m_shield=1;
 				m_shieldMax = 0.65;
+				m_mana = 115;
 				break;
 			case TROLL:
 				m_life=150;
 				m_atk=4;
 				m_shield=1;
 				m_shieldMax = 0.9;
+				m_mana = 80;
 				break;
 		}
 
@@ -72,13 +76,25 @@ namespace JeuConsole {
 		return m_life == 0;
 	}
 
-	void Entity::heal(){
-		m_life = m_life*1.5;
-
-		if(m_life > m_lifeMax){
-			m_life = m_lifeMax;
+	bool Entity::healable() {
+		if (m_mana < 80) {
+			return false;
 		}
+		else {
+			return true;
+		}
+	}
 
+	void Entity::heal(){
+		
+		if (m_mana >= 80) {
+			m_life = m_life * 1.5;
+
+			if (m_life > m_lifeMax) {
+				m_life = m_lifeMax;
+			}
+			m_mana -= 80;
+		}
 	}
 
 	// get functions 
@@ -104,5 +120,12 @@ namespace JeuConsole {
 		return m_type;
 	}
 	
+	int Entity::getMana() const {
+		return m_mana;
+	}
+
+	int Entity::setMana(int mana) {
+		m_mana += mana;
+	}
 		
 }

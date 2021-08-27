@@ -134,9 +134,15 @@ int main() {
 			cout << "Vous prenez " << player->getShield() * 100 << "% des degats totaux !" << endl << endl;
 		}
 		else if(playerInput == "h"){
-			player->heal();
-			cout << "[ " << player->getName() << " => " << player->getName() << " ] Vous vous soignez.";
-			cout << " Vous avez maintenant " << player->getLife() << " points de vie !" << endl << endl;
+			if (player->healable()) {
+				player->heal();
+				cout << "[ " << player->getName() << " => " << player->getName() << " ] Vous vous soignez.";
+				cout << " Vous avez maintenant " << player->getLife() << " points de vie et " << player->getMana() << " points de magie" << endl << endl;
+			}
+			else {
+				cout << "[ " << player->getName() << " => " << player->getName() << " ] Vous n'arrivez pas à vous soigner. " << player->getMana() << " points de magie restants\n" << endl;;
+			}
+			
 
 		}
 		else {
@@ -146,9 +152,8 @@ int main() {
 		if(enemy->isDead()) {
 			isEnemyDead = true;
 			leveledUp = player->takeXp(enemy->getGiveXp());
-			cout << "Votre ennemi est mort dans d'atroces souffrances !" << endl;
-			cout << "Vous avez : " << player->getXp() << " d'xp" << endl << endl;
-
+			cout << endl << "Votre ennemi est mort dans d'atroces souffrances !" << endl;
+			player->setMana(10);
 			deadMob += 1;
 
 
@@ -172,7 +177,7 @@ int main() {
 		}
 
 
-		// display life
+		// Display life
 		cout  << enemy->getName() << " : " << enemy->getLife() << " points de vie !" <<  endl; 
 		cout  << player->getName() << " : " << player->getLife() << " points de vie !" << endl << endl; 
 
