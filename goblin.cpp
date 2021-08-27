@@ -6,6 +6,6 @@ namespace JeuConsole {
 	}
 
 	void Goblin::absorbDmg() {
-		m_shield = 0.65;
+		m_shield = m_shieldMax;
 	}
 }

@@ -15,11 +15,22 @@ namespace JeuConsole {
 		~Entity();
 		void giveDmg(Entity& cible) const;
 		void takeDmg(int atk);
-		virtual void absorbDmg() {};
+		virtual void absorbDmg() {}
 		bool isDead() const;
 		void heal();
-		
 
+		//Hero function
+		virtual int getXp() const { return 3; };
+		virtual void incLife() {}
+		virtual void incShield() {}
+		virtual void incAtk() {}
+		virtual bool takeXp(int xp) { return false; }
+		virtual int getLevel() { return 0; }
+
+		//Enemy function
+		virtual int getGiveXp() const { return 0; }
+
+		//Les gets
 		std::string getName() const;
 		int getLife() const;
 		int getAtk() const;
@@ -35,6 +46,7 @@ namespace JeuConsole {
 		int m_atk;
 		int m_type;
 		int m_lifeMax;
+		int m_shieldMax;
 	};
 }
 #endif

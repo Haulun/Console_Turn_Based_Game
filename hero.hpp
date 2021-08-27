@@ -1,6 +1,7 @@
 #ifndef DEF_HERO
 #define DEF_HERO
 
+//std
 #include <string>
 #include <cstdlib>
 
@@ -13,12 +14,20 @@ namespace JeuConsole {
 		Hero(std::string name, Category type);
 		~Hero(){}
 
-		int getXp() const;
+		virtual int getXp() const;
+		virtual int getLevel() const;
 
-		void takeXp(int xp);
+		virtual bool takeXp(int xp);
+		void levelUp();
+
+		virtual void incLife();
+		virtual void incShield();
+		virtual void incAtk();
 
 	protected:
-		int m_xp;
+		int m_xp = 0;
+		int m_xpMax = 20;
+		int m_level = 0;
 	};
 }
 #endif
