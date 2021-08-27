@@ -20,10 +20,11 @@ namespace JeuConsole {
 		void heal();
 
 		//Hero function
-		virtual int getXp() const { return 3; };
+		
 		virtual void incLife() {}
 		virtual void incShield() {}
 		virtual void incAtk() {}
+		virtual int getXp() const = 0;
 		virtual bool takeXp(int xp) { return false; }
 		virtual int getLevel() { return 0; }
 

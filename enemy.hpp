@@ -14,6 +14,7 @@ namespace JeuConsole {
 		~Enemy(){}
 
 		virtual int getGiveXp() const;
+		virtual int getXp() const;
 
 	protected:
 		int m_giveXp;

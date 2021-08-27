@@ -25,7 +25,7 @@ namespace JeuConsole {
 				m_life=150;
 				m_atk=4;
 				m_shield=1;
-				m_shieldMax = 0.9
+				m_shieldMax = 0.9;
 				break;
 		}
 

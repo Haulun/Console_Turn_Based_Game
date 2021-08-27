@@ -9,6 +9,7 @@ namespace JeuConsole {
 	public:
 		Troll(std::string name);
 		virtual void absorbDmg();
+		/*virtual int getXp() const;*/
 	};
 }
 #endif

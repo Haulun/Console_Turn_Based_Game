@@ -113,7 +113,7 @@ int main() {
 		}
 		else if(playerInput == 's'){
 			player->absorbDmg();
-			cout << "vous vous defendez" << endl << endl;
+			cout << "vous vous defendez. Vous prenez " << player->getShield() * 100 << "% des degats totaux" << endl << endl;
 		}
 		else if(playerInput == 'h'){
 			player->heal();
