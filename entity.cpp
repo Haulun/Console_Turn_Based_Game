@@ -32,6 +32,25 @@ namespace JeuConsole {
 		m_lifeMax = m_life;
 	}
 
+	Entity::Entity(std::string name, Category type, int stage) : m_name(name), m_type(type) {
+		switch(m_type) {
+			case GOBLIN:
+				m_life=50 + stage * 10;
+				m_atk=3 + stage * 1;
+				m_shield=1;
+				m_shieldMax = 0.65 - stage * 0.05;
+				break;
+			case TROLL:
+				m_life=150 + stage * 15;
+				m_atk=8 + stage * 2;
+				m_shield=1;
+				m_shieldMax = 0.9 - stage * 0.05;
+				break;
+		}
+
+		m_lifeMax = m_life;
+	}
+
 	Entity::Entity(int life, std::string name, int shield, int atk, Category type) : m_life(life), m_name(name), m_shield(shield), m_atk(atk), m_type(type) {}
 
 	Entity::~Entity() {};

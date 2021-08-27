@@ -7,7 +7,7 @@
 namespace JeuConsole {
 	class Goblin : public Enemy {
 	public:
-		Goblin(std::string name);
+		Goblin(std::string name, int stage);
 		virtual void absorbDmg();
 	};
 }

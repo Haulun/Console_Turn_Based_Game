@@ -26,7 +26,7 @@ namespace JeuConsole {
 
 	protected:
 		int m_xp = 0;
-		int m_xpMax = 100;
+		int m_xpMax = 50;
 		int m_level = 0;
 	};
 }

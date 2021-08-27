@@ -11,6 +11,7 @@ namespace JeuConsole {
 	class Entity {
 	public:
 		Entity(std::string name, Category type);
+		Entity(std::string name, Category type, int stage);
 		Entity(int life, std::string name, int shield, int atk, Category type);
 		~Entity();
 		void giveDmg(Entity& cible) const;

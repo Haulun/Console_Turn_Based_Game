@@ -10,7 +10,7 @@ namespace JeuConsole {
 
 	class Enemy : public Entity {
 	public:
-		Enemy(std::string name, Category type);
+		Enemy(std::string name, Category type, int stage);
 		~Enemy(){}
 
 		virtual int getGiveXp() const;
