@@ -7,9 +7,8 @@
 namespace JeuConsole {
 	class Troll : public Enemy {
 	public:
-		Troll(std::string name);
+		Troll(std::string name, int level);
 		virtual void absorbDmg();
-		/*virtual int getXp() const;*/
 	};
 }
 #endif

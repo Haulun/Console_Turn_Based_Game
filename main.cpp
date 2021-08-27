@@ -41,6 +41,8 @@ int main() {
 
 	bool isEnemyDead = true;
 	bool leveledUp = false;
+	int stage = 0;
+
 
 	while(!player->isDead()){
 
@@ -86,11 +88,11 @@ int main() {
 			int random = rand() % 100;
 
 			if(random < 37){
-				enemy = new Troll("Troll"); 
+				enemy = new Troll("Troll", stage); 
 				cout << "attention un troll apparait !" << endl << endl;
 			}
 			else{
-				enemy = new Goblin("Goblin");
+				enemy = new Goblin("Goblin", stage);
 				cout << "attention un goblin apparait !" << endl << endl;
 			}
 			isEnemyDead = false;
@@ -130,6 +132,12 @@ int main() {
 			leveledUp = player->takeXp(enemy->getGiveXp());
 			cout << "votre ennemi est mort dans d'atroces souffrances !" << endl;
 			cout << "Vous avez : " << player->getXp() << " d'xp" << endl << endl;
+
+
+			if(leveledUp && player->getLevel()%5==0 && player->getLevel() != 0){
+				stage += 1;
+				cout << "vous passez à l'étage suivant" << endl << endl;
+			}
 
 		} 
 		else {

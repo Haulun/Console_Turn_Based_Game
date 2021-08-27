@@ -1,7 +1,7 @@
 #include "goblin.hpp"
 
 namespace JeuConsole {
-	Goblin::Goblin(std::string name) : Enemy(name, GOBLIN) {
+	Goblin::Goblin(std::string name, int stage) : Enemy(name, GOBLIN, stage) {
 		m_giveXp = 10;
 	}
 
