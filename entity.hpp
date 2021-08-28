@@ -43,6 +43,7 @@ namespace JeuConsole {
 
 		//Les sets
 		void setMana(int mana);
+		void setShield(int shield);
 
 
 
