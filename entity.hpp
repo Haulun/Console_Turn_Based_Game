@@ -32,7 +32,7 @@ namespace JeuConsole {
 		//Enemy function
 		virtual int getGiveXp() const { return 0; }
 
-		//Les gets
+		// get functions
 		std::string getName() const;
 		int getLife() const;
 		int getLifeMax() const;
@@ -41,11 +41,11 @@ namespace JeuConsole {
 		int getType() const;
 		int getMana() const;
 
-		//Les sets
-		void setMana(int mana);
+		// set functions
 		void setShield(int shield);
 
-
+		// inc functions
+		void incMana(int mana);
 
 	protected:
 		int m_life;
@@ -56,6 +56,7 @@ namespace JeuConsole {
 		int m_lifeMax;
 		double m_shieldMax;
 		int m_mana;
+		int m_manaMax;
 	};
 }
 #endif

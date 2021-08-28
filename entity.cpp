@@ -34,6 +34,7 @@ namespace JeuConsole {
 		}
 
 		m_lifeMax = m_life;
+		m_manaMax = m_mana;
 	}
 
 	Entity::Entity(std::string name, Category type, int stage) : m_name(name), m_type(type) {
@@ -122,12 +123,20 @@ namespace JeuConsole {
 
 	// Set functions
 
-	void Entity::setMana(int mana) {
-		m_mana += mana;
-	}
 
 	void Entity::setShield(int shield) {
 		m_shield = shield;
 	}
+
+	// Inc functions
+
+	void Entity::incMana(int mana) {
+		m_mana += mana;
+		if(m_mana > m_manaMax){
+			m_mana = m_manaMax;
+		}
+
+	}
+
 		
 }

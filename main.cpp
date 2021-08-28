@@ -131,6 +131,8 @@ int main() {
 			cout << "[ " << player->getName() << " => " << player->getName() << " ] Vous vous defendez. ";
 			cout << "Vous prenez " << player->getShield() * 100 << "% des degats totaux !" << endl << endl;
 			enemy->setShield(1);
+			
+			player->incMana(10);
 		}
 		else if(playerInput == "h"){
 			if (player->healable()) {
@@ -156,7 +158,7 @@ int main() {
 			isEnemyDead = true;
 			leveledUp = player->takeXp(enemy->getGiveXp());
 			cout << endl << "INFO : Votre ennemi est mort dans d'atroces souffrances !" << endl;
-			player->setMana(10);
+			player->incMana(20);
 			cout << "INFO : Vous avez recupere 10 points de mana" << endl << endl;
 			deadMob += 1;
 
@@ -193,7 +195,9 @@ int main() {
 
 		// Display life
 		cout  << enemy->getName() << " : " << enemy->getLife() << " points de vie !" <<  endl; 
-		cout  << player->getName() << " : " << player->getLife() << " points de vie !" << endl << endl; 
+		cout  << player->getName() << " : " << player->getLife() << " points de vie !" << endl; 
+		cout << "INFO : Vous avez maintenant " << player->getMana() << " points de mana"<< endl << endl;
+
 
 		round += 1;
 
