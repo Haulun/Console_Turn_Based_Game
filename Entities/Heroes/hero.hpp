@@ -5,7 +5,7 @@
 #include <string>
 #include <cstdlib>
 
-#include "entity.hpp"
+#include "../entity.hpp"
 
 namespace JeuConsole {
 
