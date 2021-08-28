@@ -89,7 +89,7 @@ namespace JeuConsole {
 		}
 	}
 
-	// get functions 
+	// Get functions 
 
 	std::string Entity::getName() const{
 		return m_name;
@@ -120,8 +120,14 @@ namespace JeuConsole {
 		return m_mana;
 	}
 
+	// Set functions
+
 	void Entity::setMana(int mana) {
 		m_mana += mana;
+	}
+
+	void Entity::setShield(int shield) {
+		m_shield = shield;
 	}
 		
 }

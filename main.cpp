@@ -61,7 +61,7 @@ int main() {
 			if(leveledUp) {
 				std::string playerInput;
 
-				cout << "Vous etes maintenant level " << player->getLevel() << " ! Bravo *clap* *clap* !" << endl << endl;
+				cout << "INFO : Vous etes maintenant level " << player->getLevel() << " ! Bravo *clap* *clap* !" << endl << endl;
 				cout << "Choississez ce que vous voulez augmenter :" << endl;
 				cout << " - \"life\" pour augmenter la vie de 10." << endl;
 				cout << " - \"shield\" pour augmenter le bouclier de 5%." << endl;
@@ -130,37 +130,45 @@ int main() {
 			player->absorbDmg();
 			cout << "[ " << player->getName() << " => " << player->getName() << " ] Vous vous defendez. ";
 			cout << "Vous prenez " << player->getShield() * 100 << "% des degats totaux !" << endl << endl;
+			enemy->setShield(1);
 		}
 		else if(playerInput == "h"){
 			if (player->healable()) {
 				player->heal();
 				cout << "[ " << player->getName() << " => " << player->getName() << " ] Vous vous soignez.";
-				cout << " Vous avez maintenant " << player->getLife() << " points de vie et " << player->getMana() << " points de magie" << endl << endl;
+				cout << "Vous avez maintenant " << player->getLife() << " points de vie et " << player->getMana() << " points de magie" << endl << endl;
 			}
 			else {
-				cout << "[ " << player->getName() << " => " << player->getName() << " ] Vous n'arrivez pas à vous soigner. " << player->getMana() << " points de magie restants\n" << endl;;
+				cout << "[ " << player->getName() << " => " << player->getName() << " ] Vous n'arrivez pas à vous soigner. " << player->getMana() << " points de magie restants\n" << endl;
+				
 			}
-			
+			enemy->setShield(1);
 
 		}
 		else {
 			cout << "Vous ratez votre coup..." << endl << endl;
+			enemy->setShield(1);
 		}
+
+
 
 		if(enemy->isDead()) {
 			isEnemyDead = true;
 			leveledUp = player->takeXp(enemy->getGiveXp());
-			cout << endl << "Votre ennemi est mort dans d'atroces souffrances !" << endl;
+			cout << endl << "INFO : Votre ennemi est mort dans d'atroces souffrances !" << endl;
 			player->setMana(10);
+			cout << "INFO : Vous avez recupere 10 points de mana" << endl << endl;
 			deadMob += 1;
 
 
 			if(leveledUp && player->getLevel()%5==0 && player->getLevel() != 0){
 				stage += 1;
-				cout << "Bravo ! Vous passez à l'etage suivant" << endl << endl;
+				cout << "INFO : Bravo ! Vous passez à l'etage suivant" << endl << endl;
 			}
 
 		} 
+
+
 		else {
 			int random = rand() % 100;
 			
@@ -188,13 +196,15 @@ int main() {
 		cout  << player->getName() << " : " << player->getLife() << " points de vie !" << endl << endl; 
 
 		round += 1;
+
 	}
 
-		cout << "==========> Fin du jeu <==========" << endl << endl;
+		cout << "==========> Vous etes mort <==========" << endl << endl;
+		cout << "============> Fin du jeu <============" << endl << endl;
 
 		cout << "Etage atteint : " << stage << endl;
 		cout << "Niveau atteint : " << player->getLevel() << endl;
-		cout << "Nombre de mobs tués : " << deadMob << endl;
+		cout << "Nombre de mobs tues : " << deadMob << endl;
 
 
 	//Delete the player and the last enemy if the player dies
