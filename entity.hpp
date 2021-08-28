@@ -27,7 +27,7 @@ namespace JeuConsole {
 		virtual int getXp() const = 0;
 		virtual bool takeXp(int xp) { return false; }
 		virtual int getLevel() const = 0;
-		virtual bool healable();
+		virtual bool healable() {return true;}
 
 		//Enemy function
 		virtual int getGiveXp() const { return 0; }
@@ -35,13 +35,14 @@ namespace JeuConsole {
 		//Les gets
 		std::string getName() const;
 		int getLife() const;
+		int getLifeMax() const;
 		int getAtk() const;
 		double getShield() const;
 		int getType() const;
 		int getMana() const;
 
 		//Les sets
-		int setMana(int mana);
+		void setMana(int mana);
 
 
 

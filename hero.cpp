@@ -40,5 +40,10 @@ namespace JeuConsole {
 	void Hero::incAtk() {
 		m_atk += 2;
 	}
+
+	bool Hero::healable() {
+		return m_mana >= 80;
+	}
+
 }
 

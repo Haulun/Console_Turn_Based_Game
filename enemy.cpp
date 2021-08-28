@@ -15,6 +15,9 @@ namespace JeuConsole {
 	int Enemy::getLevel() const {
 		return 0;
 	}
+	bool Enemy::healable() {
+		return m_life < 0.25 * m_lifeMax && m_mana >= 80;
+	}
 
 }
 
