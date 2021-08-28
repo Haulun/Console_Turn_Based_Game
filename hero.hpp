@@ -22,6 +22,7 @@ namespace JeuConsole {
 		virtual void incLife();
 		virtual void incShield();
 		virtual void incAtk();
+		virtual bool healable();
 
 	protected:
 		int m_xp = 0;

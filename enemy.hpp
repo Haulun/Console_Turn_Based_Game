@@ -16,6 +16,7 @@ namespace JeuConsole {
 		virtual int getGiveXp() const;
 		virtual int getXp() const;
 		virtual int getLevel() const ;
+		virtual bool healable();
 
 	protected:
 		int m_giveXp;

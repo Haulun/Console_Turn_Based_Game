@@ -8,8 +8,6 @@
 
 #include <cstdlib>
 #include <iostream>
-#include <istream>
-
 
 using namespace JeuConsole;
 using namespace std;
@@ -164,16 +162,24 @@ int main() {
 
 		} 
 		else {
-			int random = rand() % 3;
-			if (random == 0 && enemy->getShield() == 1) {
+			int random = rand() % 100;
+			
+			// shield
+			if (random < 20 && enemy->getShield() == 1) {
 				enemy->absorbDmg();
 				cout << "[ " << enemy->getName() << " => " << enemy->getName() << " ] L'ennemi se prepare a absorber la prochaine attaque !" << endl << endl;
 			}
+			//heal
+			else if(random >= 20 && random < 45 && enemy->healable()) {
+				enemy->heal();
+				cout << "[ " << enemy->getName() << " => " << enemy->getName() << " ] L'ennemi se soigne !" << endl << endl;
+
+			}
+			// atk
 			else {
 				enemy->giveDmg(*player);
 				cout << "[ " << player->getName() << " <= " << enemy->getName() << " ] L'ennemi fonce sur vous, vous perdez des points de vie !" << endl << endl;
-			}
-			
+	}
 		}
 
 
