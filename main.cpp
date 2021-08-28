@@ -1,10 +1,12 @@
-#include "entity.hpp"
-#include "knight.hpp"
-#include "mage.hpp"
-#include "troll.hpp"
-#include "goblin.hpp"
-#include "hero.hpp"
-#include "enemy.hpp"
+#include "Entities/entity.hpp"
+
+#include "Entities/Heroes/hero.hpp"
+#include "Entities/Heroes/knight.hpp"
+#include "Entities/Heroes/mage.hpp"
+
+#include "Entities/Enemies/enemy.hpp"
+#include "Entities/Enemies/troll.hpp"
+#include "Entities/Enemies/goblin.hpp"
 
 #include <cstdlib>
 #include <iostream>
