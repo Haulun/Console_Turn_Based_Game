@@ -12,7 +12,10 @@
 #include <iostream>
 
 using namespace JeuConsole;
-using namespace std;
+using std::cin;
+using std::cout;
+using std::endl;
+using std::string;
 
 int main() {
 
