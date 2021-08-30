@@ -1,5 +1,7 @@
 #include "entity.hpp"
 
+Entity::Entity() {}
+
 Entity::Entity(Type type) {
 	switch (type)
 	{

@@ -18,7 +18,6 @@ public:
 	//Constructeur et destructeur basiques
 
 	Entity();
-	//(name, 150, .9, 9, 80, stage, 10, 0.02, 2);
 	Entity(Type type);
 	~Entity();
 

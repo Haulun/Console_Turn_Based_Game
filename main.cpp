@@ -3,7 +3,7 @@
 #include <cstdlib>
 #include <iostream>
 
-void makeEntity(Type type, Entity* const &entity) {
+void makeEntity(Type type, Entity* const entity) {
 	*entity = Entity(type);
 }
 
@@ -11,23 +11,17 @@ void makeEntity(Type type, Entity* const &entity) {
 int main() {
 
 	Entity entity;
-	makeEntity(Type::GOBLIN, entity);
+	makeEntity(Type::GOBLIN, &entity);
 
 	std::cout << entity.getXp() << std::endl;
 
+	bool gameShouldStop = false;
 
-	/*while (!gameShouldStop()) {
+	while (gameShouldStop) {
 
-	}*/
-
-
-
-
-
+	}
 
 }
-
-
 
 
 
