@@ -1,142 +1,262 @@
 #include "entity.hpp"
 
-namespace JeuConsole {
-	Entity::Entity(std::string name, Category type) : m_name(name), m_type(type) {
-		switch(m_type) {
-			case KNIGHT:
-				m_life=100;
-				m_atk=12;
-				m_shield=1;
-				m_shieldMax = 0.5;
-				m_mana = 90;
-				break;
-			case MAGE:
-				m_life=90;
-				m_atk=13;
-				m_shield=1;
-				m_shieldMax = 0.3;
-				m_mana = 100;
-				break;
-			case GOBLIN:
-				m_life=50;
-				m_atk=3;
-				m_shield=1;
-				m_shieldMax = 0.65;
-				m_mana = 80;
-				break;
-			case TROLL:
-				m_life=150;
-				m_atk=4;
-				m_shield=1;
-				m_shieldMax = 0.9;
-				m_mana = 80;
-				break;
-		}
-
-		m_lifeMax = m_life;
-		m_manaMax = m_mana;
-	}
-
-	Entity::Entity(std::string name, Category type, int stage) : m_name(name), m_type(type) {
-		switch(m_type) {
-			case GOBLIN:
-				m_life=50 + stage * 10;
-				m_atk=3 + stage * 1;
-				m_shield=1;
-				m_shieldMax = 0.65 - stage * 0.05;
-				break;
-			case TROLL:
-				m_life=150 + stage * 15;
-				m_atk=8 + stage * 2;
-				m_shield=1;
-				m_shieldMax = 0.9 - stage * 0.05;
-				break;
-		}
-
-		m_lifeMax = m_life;
+Entity::Entity(Type type) {
+	switch (type)
+	{
+	case Type::TROLL:
+		m_name = "Hugue(tte)";
+		m_atk = 9;
 		m_mana = 80;
+		m_lifeMax = 150;
+		m_shieldMax = 0.9;
+		m_xp = 50;
+		break;
+	case Type::GOBLIN:
+		m_name = "Michel(le)";
+		m_atk = 9;
+		m_mana = 160;
+		m_lifeMax = 80;
+		m_shieldMax = 0.7;
+		m_xp = 10;
+		break;
+	case Type::KNIGHT:
+		m_name = "Arthur(ette)";
+		m_atk = 15;
+		m_mana = 100;
+		m_lifeMax = 100;
+		m_shieldMax = 0.5;
+		m_xp = 0;
+		break;
+	case Type::WIZARD:
+		m_name = "Jean(ne)";
+		m_atk = 10;
+		m_mana = 120;
+		m_lifeMax = 90;
+		m_shieldMax = 0.6;
+		m_xp = 0;
+		break;
+	default:
+		break;
 	}
 
-	Entity::Entity(int life, std::string name, int shield, int atk, Category type) : m_life(life), m_name(name), m_shield(shield), m_atk(atk), m_type(type) {}
-
-	Entity::~Entity() {};
-
-	void Entity::giveDmg(Entity& cible) const{
-		cible.takeDmg(m_atk);
-	}
-
-	void Entity::takeDmg(int atk) {
-		m_life = m_life - (atk * m_shield);
-		if (m_life < 0) {
-			m_life = 0;
-		}
-
-		m_shield = 1;
-	}
-
-	bool Entity::isDead() const {
-		return m_life == 0;
-	}
-
-	void Entity::heal(){
-		
-		if (m_mana >= 80) {
-			m_life += m_lifeMax * 0.5;
-
-			if (m_life > m_lifeMax) {
-				m_life = m_lifeMax;
-			}
-			m_mana -= 80;
-		}
-	}
-
-	// Get functions 
-
-	std::string Entity::getName() const{
-		return m_name;
-	}
-
-	int Entity::getLife()  const{
-		return m_life;
-	}
-
-	int Entity::getLifeMax() const{
-		return m_lifeMax;
-	}
-
-	int Entity::getAtk() const{
-		return m_atk;
-	}
-	
-
-	double Entity::getShield() const{
-		return m_shield;
-	}
-
-	int Entity::getType() const{
-		return m_type;
-	}
-	
-	int Entity::getMana() const {
-		return m_mana;
-	}
-
-	// Set functions
-
-
-	void Entity::setShield(int shield) {
-		m_shield = shield;
-	}
-
-	// Inc functions
-
-	void Entity::incMana(int mana) {
-		m_mana += mana;
-		if(m_mana > m_manaMax){
-			m_mana = m_manaMax;
-		}
-
-	}
-
-		
+	m_shield = 1;
+	m_life = m_lifeMax;
 }
+
+
+Entity::~Entity() {
+
+}
+
+void Entity::giveDamage(Entity& aim) const {
+
+}
+
+bool Entity::absorbDamage() {
+	return false;
+}
+
+bool Entity::heal() {
+	return false;
+}
+
+void Entity::takeDamage(int atk) {
+
+}
+
+void Entity::takeXp(int xp) {
+
+}
+
+void Entity::levelUp(Entity &donor) {
+	
+}
+
+bool Entity::isDead() {
+	return false;
+}
+
+int Entity::getXp() const {
+	return m_xp;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	//Entity::Entity(std::string name, Category type) : m_name(name), m_type(type) {
+	//	switch(m_type) {
+	//		case KNIGHT:
+	//			m_life=100;
+	//			m_atk=12;
+	//			m_shield=1;
+	//			m_shieldMax = 0.5;
+	//			m_mana = 90;
+	//			break;
+	//		case MAGE:
+	//			m_life=90;
+	//			m_atk=13;
+	//			m_shield=1;
+	//			m_shieldMax = 0.3;
+	//			m_mana = 100;
+	//			break;
+	//		case GOBLIN:
+	//			m_life=50;
+	//			m_atk=3;
+	//			m_shield=1;
+	//			m_shieldMax = 0.65;
+	//			m_mana = 80;
+	//			break;
+	//		case TROLL:
+	//			m_life=150;
+	//			m_atk=4;
+	//			m_shield=1;
+	//			m_shieldMax = 0.9;
+	//			m_mana = 80;
+	//			break;
+	//	}
+
+	//	m_lifeMax = m_life;
+	//	m_manaMax = m_mana;
+	//}
+
+	//Entity::Entity(std::string name, Category type, int stage) : m_name(name), m_type(type) {
+	//	switch(m_type) {
+	//		case GOBLIN:
+	//			m_life=50 + stage * 10;
+	//			m_atk=3 + stage * 1;
+	//			m_shield=1;
+	//			m_shieldMax = 0.65 - stage * 0.05;
+	//			break;
+	//		case TROLL:
+	//			m_life=150 + stage * 15;
+	//			m_atk=8 + stage * 2;
+	//			m_shield=1;
+	//			m_shieldMax = 0.9 - stage * 0.05;
+	//			break;
+	//	}
+
+	//	m_lifeMax = m_life;
+	//	m_mana = 80;
+	//}
+
+	//Entity::Entity(int life, std::string name, int shield, int atk, Category type) : m_life(life), m_name(name), m_shield(shield), m_atk(atk), m_type(type) {}
+
+	//Entity::~Entity() {};
+
+	//void Entity::giveDmg(Entity& cible) const{
+	//	cible.takeDmg(m_atk);
+	//}
+
+	//void Entity::takeDmg(int atk) {
+	//	m_life = m_life - (atk * m_shield);
+	//	if (m_life < 0) {
+	//		m_life = 0;
+	//	}
+
+	//	m_shield = 1;
+	//}
+
+	//bool Entity::isDead() const {
+	//	return m_life == 0;
+	//}
+
+	//void Entity::heal(){
+	//	
+	//	if (m_mana >= 80) {
+	//		m_life += m_lifeMax * 0.5;
+
+	//		if (m_life > m_lifeMax) {
+	//			m_life = m_lifeMax;
+	//		}
+	//		m_mana -= 80;
+	//	}
+	//}
+
+	//// Get functions 
+
+	//std::string Entity::getName() const{
+	//	return m_name;
+	//}
+
+	//int Entity::getLife()  const{
+	//	return m_life;
+	//}
+
+	//int Entity::getLifeMax() const{
+	//	return m_lifeMax;
+	//}
+
+	//int Entity::getAtk() const{
+	//	return m_atk;
+	//}
+	//
+
+	//double Entity::getShield() const{
+	//	return m_shield;
+	//}
+
+	//int Entity::getType() const{
+	//	return m_type;
+	//}
+	//
+	//int Entity::getMana() const {
+	//	return m_mana;
+	//}
+
+	//// Set functions
+
+
+	//void Entity::setShield(int shield) {
+	//	m_shield = shield;
+	//}
+
+	//// Inc functions
+
+	//void Entity::incMana(int mana) {
+	//	m_mana += mana;
+	//	if(m_mana > m_manaMax){
+	//		m_mana = m_manaMax;
+	//	}
+
+	//}
