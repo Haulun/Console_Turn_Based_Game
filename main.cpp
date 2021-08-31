@@ -2,18 +2,19 @@
 
 #include <cstdlib>
 #include <iostream>
+#include <memory>
 
-void makeEntity(Type type, Entity* const entity) {
-	*entity = Entity(type);
+std::unique_ptr<Entity> makeEntity(Type type) {
+	return std::make_unique<Entity>(type);
 }
 
 
 int main() {
 
-	Entity entity;
-	makeEntity(Type::GOBLIN, &entity);
+	std::unique_ptr<Entity> entity;
+	entity = makeEntity(Type::GOBLIN);
 
-	std::cout << entity.getXp() << std::endl;
+	std::cout << entity->getXp() << std::endl;
 
 	bool gameShouldStop = false;
 
