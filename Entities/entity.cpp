@@ -2,16 +2,18 @@
 
 Entity::Entity() {}
 
-Entity::Entity(std::string name, int atk, int mana, int lifeMax, double shieldMax, int xp) {
+Entity::Entity(std::string name, int atk, int manaMax, int lifeMax, double shieldMax, int xp) {
 	m_name = name;
 	m_atk = atk;
-	m_mana = mana;
+	m_manaMax = manaMax;
 	m_lifeMax = lifeMax;
 	m_shieldMax = shieldMax;
 	m_xp = xp;
 
 	m_life = m_lifeMax;
 	m_shield = 1;
+	m_level = 0;
+	m_mana = m_manaMax;
 }
 
 
@@ -20,38 +22,117 @@ Entity::~Entity() {
 }
 
 void Entity::giveDamage(Entity& aim) const {
-
+	aim.takeDamage(m_atk);
 }
 
-bool Entity::absorbDamage() {
-	return false;
+void Entity::absorbDamage() {
+	m_shield = m_shieldMax;
 }
 
 bool Entity::heal() {
-	return false;
+	if (m_mana >= 80) {
+		m_life += (int)(m_lifeMax / 0.5);
+		m_mana -= 80;
+		if (m_life > m_lifeMax) {
+			m_life = m_lifeMax;
+		}
+		return true;
+	}
+	else {
+		return false;
+	}
 }
 
 void Entity::takeDamage(int atk) {
+	m_life -= (int)(atk * m_shield);
+	m_shield = 1.0;
 
+	if (m_life < 0) {
+		m_life = 0;
+	}
 }
 
-void Entity::takeXp(int xp) {
-
+bool Entity::takeXp(int xp) {
+	if (m_xp >= 100 + m_level * 100) {
+		m_xp -= 100 + m_level * 100;
+		m_level += 1;
+		return true;
+	}
+	else {
+		m_xp += xp;
+		return false;
+	}
 }
 
-void Entity::levelUp(Entity &donor) {
-	
+//Incrementations :
+
+void Entity::incLifeMax(int bonusLife) {
+	m_lifeMax += bonusLife;
+	m_life = m_lifeMax;
+}
+
+void Entity::incShieldMax(double bonusShield) {
+	m_shieldMax -= bonusShield;
+}
+
+void Entity::incAtk(int bonusAtk) {
+	m_atk += bonusAtk;
+}
+
+void Entity::incMana(int bonusMana) {
+	m_mana += bonusMana;
+
+	if (m_mana > m_manaMax) {
+		m_mana = m_manaMax;
+	}
 }
 
 bool Entity::isDead() {
-	return false;
+	if (m_life == 0) {
+		return true;
+	}
+	else {
+		return false;
+	}
 }
+
+//Getters :
 
 int Entity::getXp() const {
 	return m_xp;
 }
 
+std::string Entity::getName() const {
+	return m_name;
+}
 
+int Entity::getLife() const {
+	return m_life;
+}
+
+int Entity::getLifeMax() const {
+	return m_lifeMax;
+}
+
+int Entity::getAtk() const {
+	return m_atk;
+}
+double Entity::getShield() const {
+	return m_shield;
+}
+
+int Entity::getMana() const {
+	return m_mana;
+}
+
+int Entity::getLevel() const{
+	return m_level;
+}
+
+//Setters :
+void Entity::setShield(double newShield) {
+	m_shield = newShield;
+}
 
 
 
