@@ -18,8 +18,10 @@ public:
 	//Constructeur et destructeur basiques
 
 	Entity();
-	Entity(Type type);
+	Entity(std::string name, int atk, int mana, int m_lifeMax, double shieldMax, int xp);
 	~Entity();
+
+
 
 	//Actions basiques
 

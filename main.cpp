@@ -4,24 +4,63 @@
 #include <iostream>
 #include <memory>
 
-std::unique_ptr<Entity> makeEntity(Type type) {
-	return std::make_unique<Entity>(type);
+
+std::unique_ptr<Entity> makeTroll(int stage) {
+	std::string name = "Hugue(ette";
+	int atk = 8 + stage * 2;
+	int mana = 80;
+	int life = 150 + stage * 15;
+	double shieldMax = 0.9 - stage * 0.05;
+	int xp = 50;
+
+	return std::make_unique<Entity>(name, atk, mana, life, shieldMax, xp);
+}
+
+std::unique_ptr<Entity> makeGoblin(int stage) {
+	std::string name = "Michel(le)";
+	int atk = 3 + stage * 1;
+	int mana = 80;
+	int life = 50 + stage * 10;
+	double shieldMax = 0.65 - stage * 0.05;
+	int xp = 10;
+
+	return std::make_unique<Entity>(name, atk, mana, life, shieldMax, xp);
+}
+std::unique_ptr<Entity> makeKnight(int stage) {
+	std::string name = "Arthur(ette)";
+	int atk = 15;
+	int mana = 80;
+	int life = 160;
+	double shieldMax = 0.6;
+	int xp = 0;
+
+	return std::make_unique<Entity>(name, atk, mana, life, shieldMax, xp);
+}
+std::unique_ptr<Entity> makeWizard(int stage) {
+	std::string name = "jean(ne)";
+	int atk = 10;
+	int mana = 80;
+	int life = 120;
+	double shieldMax = 0.6;
+	int xp = 0;
+
+	return std::make_unique<Entity>(name, atk, mana, life, shieldMax, xp);
 }
 
 
 int main() {
 
-	std::unique_ptr<Entity> entity;
-	entity = makeEntity(Type::GOBLIN);
+	std::unique_ptr<Entity> knight;
+	knight = makeKnight(1);
 
-	std::cout << entity->getXp() << std::endl;
+	std::cout << knight->getXp() << std::endl;
 
-	bool gameShouldStop = false;
+/*	bool gameShouldStop = false;
 
 	while (gameShouldStop) {
 
 	}
-
+*/
 }
 
 

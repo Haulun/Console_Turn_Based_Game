@@ -2,47 +2,16 @@
 
 Entity::Entity() {}
 
-Entity::Entity(Type type) {
-	switch (type)
-	{
-	case Type::TROLL:
-		m_name = "Hugue(tte)";
-		m_atk = 9;
-		m_mana = 80;
-		m_lifeMax = 150;
-		m_shieldMax = 0.9;
-		m_xp = 50;
-		break;
-	case Type::GOBLIN:
-		m_name = "Michel(le)";
-		m_atk = 9;
-		m_mana = 160;
-		m_lifeMax = 80;
-		m_shieldMax = 0.7;
-		m_xp = 10;
-		break;
-	case Type::KNIGHT:
-		m_name = "Arthur(ette)";
-		m_atk = 15;
-		m_mana = 100;
-		m_lifeMax = 100;
-		m_shieldMax = 0.5;
-		m_xp = 0;
-		break;
-	case Type::WIZARD:
-		m_name = "Jean(ne)";
-		m_atk = 10;
-		m_mana = 120;
-		m_lifeMax = 90;
-		m_shieldMax = 0.6;
-		m_xp = 0;
-		break;
-	default:
-		break;
-	}
+Entity::Entity(std::string name, int atk, int mana, int lifeMax, double shieldMax, int xp) {
+	m_name = name;
+	m_atk = atk;
+	m_mana = mana;
+	m_lifeMax = lifeMax;
+	m_shieldMax = shieldMax;
+	m_xp = xp;
 
-	m_shield = 1;
 	m_life = m_lifeMax;
+	m_shield = 1;
 }
 
 
