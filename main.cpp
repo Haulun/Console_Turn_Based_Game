@@ -211,6 +211,12 @@ void initGame(std::unique_ptr<Entity>& player) {
 	player = chooseHero(stage);
 }
 
+void TerminateGame(std::unique_ptr<Entity>& player, std::unique_ptr<Entity>& enemy) {
+	player.reset();
+	enemy.reset();
+	gameShouldStop = true;
+}
+
 int main() {
 
 	//Variables :
@@ -226,6 +232,7 @@ int main() {
 		std::cout << "==========> TOUR " << turn << " <==========" << std::endl << std::endl;
 
 		if (isEnemyDead) {
+			enemy.reset();
 			int category = rand() % 100;
 			if (category < 37) {
 				enemy = makeTroll(stage);
@@ -290,27 +297,23 @@ int main() {
 			std::cout << "	- \"n\" pour non" << std::endl;
 
 			std::cout << "Votre choix : ";
-			std::cin >> choice;
-
+			
 			do {
+				std::cin >> choice;
+
 				if (choice != "o" && choice != "n") {
 					std::cout << "Caractere non valide ! Veuillez reessayer\n" << std::endl;
 				}
 			} while (choice != "o" && choice != "n");
 
 			if (choice == "o") {
+				player.reset();
 				initGame(player);
-				
 			}
 			else {
-				gameShouldStop = true;
+				TerminateGame(player, enemy);
 			}
 		}
-
 	} while (!gameShouldStop);
-
-	
-
-	
-
 }
+
