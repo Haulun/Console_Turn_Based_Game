@@ -4,44 +4,45 @@
 #include <string>
 #include <cstdlib>
 
-	
-enum class Type {
-	TROLL,
-	GOBLIN,
-	KNIGHT,
-	WIZARD
-};
-
 class Entity {
 public:
 		
-	//Constructeur et destructeur basiques
-
+	//Constructors and Destructor
 	Entity();
 	Entity(std::string name, int atk, int mana, int m_lifeMax, double shieldMax, int xp);
 	~Entity();
 
-
-
-	//Actions basiques
-
+	//Basic actions
 	void giveDamage(Entity &aim) const;
-	bool absorbDamage(/*???*/);
+	void absorbDamage();
 	bool heal();
 
-	//Tout ce qui peut être pris par l'objet
-		
+	//All that an object can take	
 	void takeDamage(int atk);
-	void takeXp(int xp);
+	bool takeXp(int xp);
 
-	//Salut
+	//Incrementations
+	void incLifeMax(int bonusLife);
+	void incShieldMax(double bonusShield);
+	void incAtk(int bonusAtk);
+	void incMana(int bonusMana);
 
-	void levelUp(Entity& donor);
-	int getXp() const;
-
-	//L'objet peut-il être détruit ?
-
+	//Can the object be destroyed ?
 	bool isDead();
+
+	//Getters
+	int getXp() const; 
+	std::string getName() const;
+	int getLife() const;
+	int getLifeMax() const;
+	int getAtk() const;
+	double getShield() const;
+	int getMana() const;
+	int getLevel() const;
+
+	//Setters
+	void setShield(double newShield);
+
 
 protected:
 	std::string m_name = "NONAME";
@@ -52,6 +53,8 @@ protected:
 	int m_lifeMax = 100;
 	double m_shieldMax = 0;
 	int m_xp = 0;
+	int m_level = 0;
+	int m_manaMax = 100;
 
 
 
@@ -112,13 +115,7 @@ protected:
 	//	virtual int getGiveXp() const { return 0; }
 
 	//	// get functions
-	//	std::string getName() const;
-	//	int getLife() const;
-	//	int getLifeMax() const;
-	//	int getAtk() const;
-	//	double getShield() const;
-	//	int getType() const;
-	//	int getMana() const;
+	
 
 	//	// set functions
 	//	void setShield(int shield);
