@@ -1,4 +1,4 @@
-#include "Entities/entity.hpp"
+#include "entity.hpp"
 
 #include <cstdlib>
 #include <iostream>
@@ -93,7 +93,7 @@ std::unique_ptr<Entity> chooseHero(int stage) {
 }
 
 //With this function, the player choose what he wants to do against the enemy or for himself
-void playerChooseAction(std::unique_ptr<Entity> &player, std::unique_ptr<Entity> &aim) {
+void playerChooseAction(std::unique_ptr<Entity> &entity, std::unique_ptr<Entity> &aim) {
 	std::string playerInput;
 
 	std::cout << "Choisissez une action :" <<std::endl;
@@ -106,25 +106,25 @@ void playerChooseAction(std::unique_ptr<Entity> &player, std::unique_ptr<Entity>
 	std::cin >> playerInput;
 	std::cout <<std::endl;
 	if (playerInput == "a") {
-		player->giveDamage(*aim);
-		std::cout << "[ " << player->getName() << " => " << aim->getName() << " ] Vous attaquez votre ennemi ! " <<std::endl;
-		player->incMana(5);
+		entity->giveDamage(*aim);
+		std::cout << "[ " << entity->getName() << " => " << aim->getName() << " ] Vous attaquez votre ennemi ! " <<std::endl;
+		entity->incMana(5);
 	}
 	else if (playerInput == "s") {
-		player->absorbDamage();
-		std::cout << "[ " << player->getName() << " => " << player->getName() << " ] Vous vous defendez. ";
-		std::cout << "Vous prenez " << player->getShield() * 100 << "% des degats totaux !" <<std::endl <<std::endl;
+		entity->absorbDamage();
+		std::cout << "[ " << entity->getName() << " => " << entity->getName() << " ] Vous vous defendez. ";
+		std::cout << "Vous prenez " << entity->getShield() * 100 << "% des degats totaux !" <<std::endl <<std::endl;
 		aim->setShield(1);
-		player->incMana(5);
+		entity->incMana(5);
 	}
 	else if (playerInput == "h") {
 		
-		if (player->heal()) {
-			std::cout << "[ " << player->getName() << " => " << player->getName() << " ] Vous vous soignez.";
-			std::cout << "Vous avez maintenant " << player->getLife() << " points de vie et " << player->getMana() << " points de magie" << std::endl << std::endl;
+		if (entity->heal()) {
+			std::cout << "[ " << entity->getName() << " => " << entity->getName() << " ] Vous vous soignez.";
+			std::cout << "Vous avez maintenant " << entity->getLife() << " points de vie et " << entity->getMana() << " points de magie" << std::endl << std::endl;
 		}
 		else {
-			std::cout << "[ " << player->getName() << " => " << player->getName() << " ] Vous n'arrivez pas à vous soigner. " << player->getMana() << " points de magie restants\n" <<std::endl;
+			std::cout << "[ " << entity->getName() << " => " << entity->getName() << " ] Vous n'arrivez pas à vous soigner. " << entity->getMana() << " points de magie restants\n" <<std::endl;
 			
 		}
 		aim->setShield(1);
@@ -137,16 +137,17 @@ void playerChooseAction(std::unique_ptr<Entity> &player, std::unique_ptr<Entity>
 	}
 	else {
 		std::cout << "Vous ratez votre coup..." <<std::endl <<std::endl;
-		player->incMana(5);
+		entity->incMana(5);
 		aim->setShield(1);
 	}
 	
 }
 
-void levelUp(std::unique_ptr<Entity>& player) {
+//function for an entity to levelUp
+void levelUp(std::unique_ptr<Entity>& entity) {
 	std::string playerInput;
 
-	std::cout << "INFO : Vous etes maintenant level " << player->getLevel() << " ! Bravo *clap* *clap* !" << std::endl << std::endl;
+	std::cout << "INFO : Vous etes maintenant level " << entity->getLevel() << " ! Bravo *clap* *clap* !" << std::endl << std::endl;
 	std::cout << "Choississez ce que vous voulez augmenter :" << std::endl;
 	std::cout << " - \"life\" pour augmenter la vie de 10." << std::endl;
 	std::cout << " - \"shield\" pour augmenter le bouclier de 5%." << std::endl;
@@ -156,17 +157,17 @@ void levelUp(std::unique_ptr<Entity>& player) {
 		std::cin >> playerInput;
 		std::cout << std::endl;
 		if (playerInput == "life") {
-			player->incLifeMax(10);
-			std::cout << "Vous avez maintenant " << player->getLife() << " points de vie !" << std::endl << std::endl;
+			entity->incLifeMax(10);
+			std::cout << "Vous avez maintenant " << entity->getLife() << " points de vie !" << std::endl << std::endl;
 
 		}
 		else if (playerInput == "shield") {
-			player->incShieldMax(0.05);
-			std::cout << "Vous avez maintenant " << player->getShield() << " de defense !" << std::endl << std::endl;
+			entity->incShieldMax(0.05);
+			std::cout << "Vous avez maintenant " << entity->getShield() << " de defense !" << std::endl << std::endl;
 		}
 		else if (playerInput == "attack") {
-			player->incAtk(2);
-			std::cout << "Vous avez maintenant " << player->getAtk() << " d'attaque !" << std::endl << std::endl;
+			entity->incAtk(2);
+			std::cout << "Vous avez maintenant " << entity->getAtk() << " d'attaque !" << std::endl << std::endl;
 		}
 		else
 		{
@@ -177,29 +178,30 @@ void levelUp(std::unique_ptr<Entity>& player) {
 	
 }
 
-void enemyChooseAction(std::unique_ptr<Entity>& enemy, std::unique_ptr<Entity>& aim) {
+//The enemy can "choose" what it wants to do
+void enemyChooseAction(std::unique_ptr<Entity>& entity, std::unique_ptr<Entity>& aim) {
 	int random = rand() % 100;
 
 	// shield
-	if (random < 20 && enemy->getShield() == 1) {
-		enemy->absorbDamage();
-		std::cout << "[ " << enemy->getName() << " => " << enemy->getName() << " ] L'ennemi se prepare a absorber la prochaine attaque !" << std::endl << std::endl;
-		enemy->incMana(3);
+	if (random < 20 && entity->getShield() == 1) {
+		entity->absorbDamage();
+		std::cout << "[ " << entity->getName() << " => " << entity->getName() << " ] L'ennemi se prepare a absorber la prochaine attaque !" << std::endl << std::endl;
+		entity->incMana(3);
 	}
 	//heal
-	else if (random >= 20 && random < 45 && enemy->getLife() <= enemy->getLifeMax()/2 && enemy->heal()) {
-		std::cout << "[ " << enemy->getName() << " => " << enemy->getName() << " ] L'ennemi se soigne !" << std::endl << std::endl;
+	else if (random >= 20 && random < 45 && entity->getLife() <= entity->getLifeMax()/2 && entity->heal()) {
+		std::cout << "[ " << entity->getName() << " => " << entity->getName() << " ] L'ennemi se soigne !" << std::endl << std::endl;
 	}
 	// atk
 	else {
-		enemy->giveDamage(*aim);
-		std::cout << "[ " << aim->getName() << " <= " << enemy->getName() << " ] L'ennemi fonce sur vous, vous perdez des points de vie !" << std::endl << std::endl;
-		enemy->incMana(3);
+		entity->giveDamage(*aim);
+		std::cout << "[ " << aim->getName() << " <= " << entity->getName() << " ] L'ennemi fonce sur vous, vous perdez des points de vie !" << std::endl << std::endl;
+		entity->incMana(3);
 	}
 }
 
 //Variables and hero initializations
-void initGame(std::unique_ptr<Entity>& player) {
+void initGame(std::unique_ptr<Entity>& entity) {
 
 	stage = 0;
 	turn = 1;
@@ -208,15 +210,18 @@ void initGame(std::unique_ptr<Entity>& player) {
 	isEnemyDead = true;
 	leveledUp = false;
 
-	player = chooseHero(stage);
+	entity.reset();
+	entity = chooseHero(stage);
 }
 
-void TerminateGame(std::unique_ptr<Entity>& player, std::unique_ptr<Entity>& enemy) {
-	player.reset();
-	enemy.reset();
+//Everything is reset and the game stops
+void TerminateGame(std::unique_ptr<Entity>& entity1, std::unique_ptr<Entity>& entity2) {
+	entity1.reset();
+	entity2.reset();
 	gameShouldStop = true;
 }
 
+//MAIN FUNCTION
 int main() {
 
 	//Variables :
@@ -277,11 +282,12 @@ int main() {
 
 		std::cout << enemy->getName() << " : " << enemy->getLife() << " points de vie !" << std::endl;
 		std::cout << player->getName() << " : " << player->getLife() << " points de vie !" << std::endl << std::endl;
+
 		std::cout << "INFO : Vous avez actuellement " << player->getMana() << " points de mana" << std::endl << std::endl;
 
 		turn += 1;
 
-		//Replay or not :
+		//Replay or not when the player dies :
 
 		if (player->isDead()) {
 			std::string choice;
