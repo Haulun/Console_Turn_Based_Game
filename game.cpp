@@ -1,11 +1,14 @@
 #include "game.hpp"
 
+//MAIN FUNCTIONS
+
 void Game::run() {
 	initGame();
 	mainLoop();
 	TerminateGame();
 }
 
+//Game Initialization
 void Game::initGame() {
 	stage = 0;
 	turn = 1;
@@ -18,6 +21,7 @@ void Game::initGame() {
 	player = chooseHero(stage);
 }
 
+//Game Loop
 void Game::mainLoop() {
 	while (!gameShouldStop) {
 		std::cout << "==========> TOUR " << turn << " <==========" << std::endl << std::endl;
@@ -109,12 +113,15 @@ void Game::mainLoop() {
 	}
 }
 
+//Game Closing
 void Game::TerminateGame() {
 	player.reset();
 	enemy.reset();
 	std::cout << "INFO : Fermeture du jeu" << std::endl;
 	gameShouldStop = true;
 }
+
+//OTHER FUNCTIONS
 
 std::unique_ptr<Entity> Game::chooseHero(int stage) {
 	std::cout << "Choisissez une classe : \n";
