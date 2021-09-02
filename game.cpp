@@ -127,11 +127,11 @@ std::unique_ptr<Entity> Game::chooseHero() {
 
 void Game::createNewEnemy() {
 	int category = rand() % 100;
-	if (category < 37) {
+	if (category < 30) {
 		enemy = makeTroll(stage);
 		std::cout << "/!\\ Attention, un Troll apparait /!\\\n" << std::endl;;
 	}
-	else if (category >= 37) {
+	else if (category >= 30) {
 		enemy = makeGoblin(stage);
 		std::cout << "/!\\ Attention, un Gobelin apparait /!\\\n" << std::endl;
 	}
