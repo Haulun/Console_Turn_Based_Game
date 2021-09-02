@@ -18,12 +18,16 @@ void Game::initGame() {
 	leveledUp = false;
 	gameShouldStop = false;
 
+	player.reset();
 	player = chooseHero(stage);
 }
 
 //Game Loop
 void Game::mainLoop() {
 	while (!gameShouldStop) {
+
+		clearConsole();
+
 		std::cout << "==========> TOUR " << turn << " <==========" << std::endl << std::endl;
 
 		if (isEnemyDead) {
@@ -69,7 +73,6 @@ void Game::mainLoop() {
 		}
 
 		// Display lives :
-
 		std::cout << enemy->getName() << " : " << enemy->getLife() << " points de vie !" << std::endl;
 		std::cout << player->getName() << " : " << player->getLife() << " points de vie !" << std::endl << std::endl;
 
@@ -103,13 +106,21 @@ void Game::mainLoop() {
 			} while (choice != "o" && choice != "n");
 
 			if (choice == "o") {
-				player.reset();
 				initGame();
 			}
 			else {
 				TerminateGame();
 			}
 		}
+
+		if (!gameShouldStop) {
+			std::cout << std::endl << "Appuyez sur une touche pour continuer" << std::endl;
+			_getch();
+		}
+		else {
+			std::cout << std::endl << "INFO : Fermeture du jeu" << std::endl;
+		}
+		
 	}
 }
 
@@ -117,11 +128,14 @@ void Game::mainLoop() {
 void Game::TerminateGame() {
 	player.reset();
 	enemy.reset();
-	std::cout << "INFO : Fermeture du jeu" << std::endl;
 	gameShouldStop = true;
 }
 
 //OTHER FUNCTIONS
+
+void Game::clearConsole() {
+	std::cout << "\x1B[2J\x1B[H";
+}
 
 std::unique_ptr<Entity> Game::chooseHero(int stage) {
 	std::cout << "Choisissez une classe : \n";

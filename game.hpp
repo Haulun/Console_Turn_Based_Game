@@ -3,6 +3,8 @@
 //std
 #include <memory>
 #include <iostream>
+#include <stdio.h>
+#include <conio.h>
 
 class Game {
 public:
@@ -21,6 +23,8 @@ private:
 	void initGame();
 	void mainLoop();
 	void TerminateGame();
+
+	void clearConsole();
 
 	std::unique_ptr<Entity> chooseHero(int stage);
 
