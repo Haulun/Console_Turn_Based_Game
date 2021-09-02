@@ -14,8 +14,10 @@ g++ main.cpp Entities/entity.cpp Entities/Heroes/knight.cpp Entities/Heroes/mage
 
 Description : 
 
-That game uses input/output terminal, player can chose a character between 2 classes (Mage and Knight).
+That game uses input/output terminal, player can chose a character between 2 classes (Wizard and Knight).
 Each turn player is asked to chose an action ( attack / heal / shield).
+
+ENJOY !
 
 
 
