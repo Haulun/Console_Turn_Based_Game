@@ -170,7 +170,7 @@ std::unique_ptr<Entity> Game::makeTroll(int stage) {
 	int manaMax = 80;
 	int lifeMax = 150 + stage * 15;
 	double shieldMax = 0.9 - stage * 0.05;
-	int xp = 50;
+	int xp = 30;
 
 	return std::make_unique<Entity>(name, atk, manaMax, lifeMax, shieldMax, xp);
 }

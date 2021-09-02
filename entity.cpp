@@ -53,8 +53,8 @@ void Entity::takeDamage(int atk) {
 }
 
 bool Entity::takeXp(int xp) {
-	if (m_xp >= 100 + m_level * 100) {
-		m_xp -= 100 + m_level * 100;
+	if (m_xp >= 50 + m_level * 50) {
+		m_xp -= 50 + m_level * 50;
 		m_level += 1;
 		return true;
 	}
