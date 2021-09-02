@@ -25,6 +25,8 @@ private:
 	void clearConsole();
 
 	std::unique_ptr<Entity> chooseHero();
+	void createNewEnemy();
+	void handleEnemyDeath();
 
 	std::unique_ptr<Entity> makeTroll(int stage);
 	std::unique_ptr<Entity> makeGoblin(int stage);

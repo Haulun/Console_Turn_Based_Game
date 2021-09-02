@@ -13,12 +13,9 @@ void Game::initGame() {
 	stage = 0;
 	turn = 1;
 	deadMob = 0;
-
 	isEnemyDead = true;
-	
 	gameShouldStop = false;
 
-	player.reset();
 	player = chooseHero();
 }
 
@@ -26,54 +23,20 @@ void Game::initGame() {
 void Game::mainLoop() {
 	while (!gameShouldStop) {
 
-		
-
 		std::cout << "==========> TOUR " << turn << " <==========" << std::endl << std::endl;
 
 		if (isEnemyDead) {
-			enemy.reset();
-			int category = rand() % 100;
-			if (category < 37) {
-				enemy = makeTroll(stage);
-				std::cout << "/!\\ Attention, un Troll apparait /!\\\n" << std::endl;;
-			}
-			else if (category >= 37) {
-				enemy = makeGoblin(stage);
-				std::cout << "/!\\ Attention, un Gobelin apparait /!\\\n" << std::endl;
-			}
-			else
-			{
-				std::cout << "Erreur a la création de l'ennemi" << std::endl;
-			}
-			isEnemyDead = false;
+			createNewEnemy();
 		}
 
 		playerChooseAction();
 
-		bool leveledUp = false;
-
 		if (enemy->isDead()) {
-			isEnemyDead = true;
-			leveledUp = player->takeXp(enemy->getXp());
-			std::cout << std::endl << "INFO : Votre ennemi est mort dans d'atroces souffrances !" << std::endl;
-			deadMob += 1;
-
-			if (leveledUp == true) {
-				levelUp();
-			}
-
-			if (leveledUp && player->getLevel() % 5 == 0 && player->getLevel() != 0) {
-				stage += 1;
-				std::cout << "INFO : Bravo ! Vous passez à l'etage suivant" << std::endl << std::endl;
-
-			}
+			handleEnemyDeath();
 		}
 		else {
 			enemyChooseAction();
 		}
-
-		// Display lives :
-		
 
 		turn += 1;
 
@@ -111,7 +74,7 @@ void Game::mainLoop() {
 		}
 
 		if (!gameShouldStop) {
-			
+			// Display lives :
 			std::cout << enemy->getName() << " : " << enemy->getLife() << " points de vie !" << std::endl;
 			std::cout << player->getName() << " : " << player->getLife() << " points de vie !" << std::endl << std::endl;
 
@@ -159,6 +122,41 @@ std::unique_ptr<Entity> Game::chooseHero() {
 	else {
 		std::cout << std::endl << "Vous avez choisi Arthure(ette) le chevalier !" << std::endl << std::endl;
 		return makeKnight();
+	}
+}
+
+void Game::createNewEnemy() {
+	int category = rand() % 100;
+	if (category < 37) {
+		enemy = makeTroll(stage);
+		std::cout << "/!\\ Attention, un Troll apparait /!\\\n" << std::endl;;
+	}
+	else if (category >= 37) {
+		enemy = makeGoblin(stage);
+		std::cout << "/!\\ Attention, un Gobelin apparait /!\\\n" << std::endl;
+	}
+	else
+	{
+		std::cout << "Erreur a la creation de l'ennemi" << std::endl;
+	}
+	isEnemyDead = false;
+}
+
+void Game::handleEnemyDeath() {
+	bool leveledUp = false;
+	isEnemyDead = true;
+	leveledUp = player->takeXp(enemy->getXp());
+	std::cout << std::endl << "INFO : Votre ennemi est mort dans d'atroces souffrances !" << std::endl;
+	deadMob += 1;
+
+	if (leveledUp == true) {
+		levelUp();
+	}
+
+	if (leveledUp && player->getLevel() % 5 == 0 && player->getLevel() != 0) {
+		stage += 1;
+		std::cout << "INFO : Bravo ! Vous passez à l'etage suivant" << std::endl << std::endl;
+
 	}
 }
 
