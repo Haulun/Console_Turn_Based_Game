@@ -26,7 +26,7 @@ void Game::initGame() {
 void Game::mainLoop() {
 	while (!gameShouldStop) {
 
-		clearConsole();
+		
 
 		std::cout << "==========> TOUR " << turn << " <==========" << std::endl << std::endl;
 
@@ -73,10 +73,7 @@ void Game::mainLoop() {
 		}
 
 		// Display lives :
-		std::cout << enemy->getName() << " : " << enemy->getLife() << " points de vie !" << std::endl;
-		std::cout << player->getName() << " : " << player->getLife() << " points de vie !" << std::endl << std::endl;
-
-		std::cout << "INFO : Vous avez actuellement " << player->getMana() << " points de mana" << std::endl << std::endl;
+		
 
 		turn += 1;
 
@@ -114,8 +111,12 @@ void Game::mainLoop() {
 		}
 
 		if (!gameShouldStop) {
-			std::cout << std::endl << "Appuyez sur une touche pour continuer" << std::endl;
-			_getch();
+			clearConsole();
+			
+			std::cout << enemy->getName() << " : " << enemy->getLife() << " points de vie !" << std::endl;
+			std::cout << player->getName() << " : " << player->getLife() << " points de vie !" << std::endl << std::endl;
+
+			std::cout << "INFO : Vous avez actuellement " << player->getMana() << " points de mana" << std::endl << std::endl;
 		}
 		else {
 			std::cout << std::endl << "INFO : Fermeture du jeu" << std::endl;

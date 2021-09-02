@@ -4,7 +4,6 @@
 #include <memory>
 #include <iostream>
 #include <stdio.h>
-#include <conio.h>
 
 class Game {
 public:
