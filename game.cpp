@@ -15,7 +15,7 @@ void Game::initGame() {
 	deadMob = 0;
 
 	isEnemyDead = true;
-	leveledUp = false;
+	
 	gameShouldStop = false;
 
 	player.reset();
@@ -50,6 +50,7 @@ void Game::mainLoop() {
 
 		playerChooseAction();
 
+		bool leveledUp = false;
 
 		if (enemy->isDead()) {
 			isEnemyDead = true;
@@ -66,8 +67,6 @@ void Game::mainLoop() {
 				std::cout << "INFO : Bravo ! Vous passez à l'etage suivant" << std::endl << std::endl;
 
 			}
-
-			leveledUp = false;
 		}
 		else {
 			enemyChooseAction();
@@ -127,8 +126,6 @@ void Game::mainLoop() {
 
 //Game Closing
 void Game::TerminateGame() {
-	player.reset();
-	enemy.reset();
 	gameShouldStop = true;
 }
 

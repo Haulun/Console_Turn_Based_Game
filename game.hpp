@@ -9,12 +9,11 @@ class Game {
 public:
 	void run();
 private:
-	int stage = 0;
-	int turn = 0;
-	int deadMob = 0;
-	bool isEnemyDead = false;
-	bool leveledUp = false;
-	bool gameShouldStop = false;
+	int stage;
+	int turn;
+	int deadMob;
+	bool isEnemyDead;
+	bool gameShouldStop;
 
 	std::unique_ptr<Entity> player;
 	std::unique_ptr<Entity> enemy;
