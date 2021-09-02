@@ -25,12 +25,12 @@ private:
 
 	void clearConsole();
 
-	std::unique_ptr<Entity> chooseHero(int stage);
+	std::unique_ptr<Entity> chooseHero();
 
 	std::unique_ptr<Entity> makeTroll(int stage);
 	std::unique_ptr<Entity> makeGoblin(int stage);
-	std::unique_ptr<Entity> makeKnight(int stage);
-	std::unique_ptr<Entity> makeWizard(int stage);
+	std::unique_ptr<Entity> makeKnight();
+	std::unique_ptr<Entity> makeWizard();
 
 	void levelUp();
 

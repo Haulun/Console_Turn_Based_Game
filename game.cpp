@@ -19,7 +19,7 @@ void Game::initGame() {
 	gameShouldStop = false;
 
 	player.reset();
-	player = chooseHero(stage);
+	player = chooseHero();
 }
 
 //Game Loop
@@ -49,6 +49,7 @@ void Game::mainLoop() {
 		}
 
 		playerChooseAction();
+
 
 		if (enemy->isDead()) {
 			isEnemyDead = true;
@@ -111,7 +112,6 @@ void Game::mainLoop() {
 		}
 
 		if (!gameShouldStop) {
-			clearConsole();
 			
 			std::cout << enemy->getName() << " : " << enemy->getLife() << " points de vie !" << std::endl;
 			std::cout << player->getName() << " : " << player->getLife() << " points de vie !" << std::endl << std::endl;
@@ -138,7 +138,7 @@ void Game::clearConsole() {
 	std::cout << "\x1B[2J\x1B[H";
 }
 
-std::unique_ptr<Entity> Game::chooseHero(int stage) {
+std::unique_ptr<Entity> Game::chooseHero() {
 	std::cout << "Choisissez une classe : \n";
 	std::cout << " - \"w\" pour Mage \n";
 	std::cout << " - \"k\" pour Knight" << std::endl << std::endl;
@@ -156,12 +156,12 @@ std::unique_ptr<Entity> Game::chooseHero(int stage) {
 
 	if (choice == "w") {
 		std::cout << std::endl << "Vous avez choisi Jean(ne) le mage !" << std::endl << std::endl;
-		return makeWizard(stage);
+		return makeWizard();
 
 	}
 	else {
 		std::cout << std::endl << "Vous avez choisi Arthure(ette) le chevalier !" << std::endl << std::endl;
-		return makeKnight(stage);
+		return makeKnight();
 	}
 }
 
@@ -187,7 +187,7 @@ std::unique_ptr<Entity> Game::makeGoblin(int stage) {
 	return std::make_unique<Entity>(name, atk, manaMax, lifeMax, shieldMax, xp);
 }
 
-std::unique_ptr<Entity> Game::makeKnight(int stage) {
+std::unique_ptr<Entity> Game::makeKnight() {
 	std::string name = "Arthur(ette)";
 	int atk = 15;
 	int manaMax = 80;
@@ -198,7 +198,7 @@ std::unique_ptr<Entity> Game::makeKnight(int stage) {
 	return std::make_unique<Entity>(name, atk, manaMax, lifeMax, shieldMax, xp);
 }
 
-std::unique_ptr<Entity> Game::makeWizard(int stage) {
+std::unique_ptr<Entity> Game::makeWizard() {
 	std::string name = "Jean(ne)";
 	int atk = 12;
 	int manaMax = 110;
@@ -254,36 +254,45 @@ void Game::playerChooseAction() {
 	std::cin >> playerInput;
 	std::cout << std::endl;
 	if (playerInput == "a") {
+		clearConsole();
+
 		player->giveDamage(*enemy);
 		std::cout << "[ " << player->getName() << " => " << enemy->getName() << " ] Vous attaquez votre ennemi ! " << std::endl;
 		player->incMana(5);
 	}
 	else if (playerInput == "s") {
+		clearConsole();
+
 		player->absorbDamage();
 		std::cout << "[ " << player->getName() << " => " << player->getName() << " ] Vous vous defendez. ";
-		std::cout << "Vous prenez " << player->getShield() * 100 << "% des degats totaux !" << std::endl << std::endl;
+		std::cout << "Vous prenez " << player->getShield() * 100 << "% des degats totaux !" << std::endl;
 		enemy->setShield(1);
 		player->incMana(5);
 	}
 	else if (playerInput == "h") {
+		clearConsole();
+
 
 		if (player->heal()) {
 			std::cout << "[ " << player->getName() << " => " << player->getName() << " ] Vous vous soignez.";
-			std::cout << "Vous avez maintenant " << player->getLife() << " points de vie et " << player->getMana() << " points de magie" << std::endl << std::endl;
+			std::cout << "Vous avez maintenant " << player->getLife() << " points de vie et " << player->getMana() << " points de magie" << std::endl;
 		}
 		else {
-			std::cout << "[ " << player->getName() << " => " << player->getName() << " ] Vous n'arrivez pas à vous soigner. " << player->getMana() << " points de magie restants\n" << std::endl;
+
+			std::cout << "[ " << player->getName() << " => " << player->getName() << " ] Vous n'arrivez pas à vous soigner. " << player->getMana() << " points de magie restants" << std::endl;
 
 		}
 		enemy->setShield(1);
 
 	}
 	else if (playerInput == "q") {
+		clearConsole();
 
 		gameShouldStop = true;
 
 	}
 	else {
+		clearConsole();	
 		std::cout << "Vous ratez votre coup..." << std::endl << std::endl;
 		player->incMana(5);
 		enemy->setShield(1);
