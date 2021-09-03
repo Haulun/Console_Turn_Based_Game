@@ -9,6 +9,7 @@
 class Game {
 public:
 	void run();
+	~Game();
 private:
 	int stage;
 	int turn;

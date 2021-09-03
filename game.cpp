@@ -1,5 +1,9 @@
 #include "game.hpp"
 
+//DESTRUCTOR
+Game::~Game(){};
+
+
 //MAIN FUNCTIONS
 
 void Game::run() {
