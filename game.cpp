@@ -75,8 +75,8 @@ void Game::mainLoop() {
 
 		if (!gameShouldStop) {
 			// Display lives :
-			std::cout << enemy->getName() << " : " << enemy->getLife() << " points de vie !" << std::endl;
-			std::cout << player->getName() << " : " << player->getLife() << " points de vie !" << std::endl << std::endl;
+			std::cout << " ENNEMI : " << enemy->getLife() << " points de vie !" << std::endl;
+			std::cout << " VOUS : " << player->getLife() << " points de vie !" << std::endl << std::endl;
 
 			std::cout << "INFO : Vous avez actuellement " << player->getMana() << " points de mana" << std::endl << std::endl;
 		}
@@ -265,12 +265,12 @@ void Game::playerChooseAction() {
 
 
 		if (player->heal()) {
-			std::cout << "[ " << player->getName() << " => " << player->getName() << " ] Vous vous soignez.";
+			std::cout << "[ VOUS => VOUS ] Vous vous soignez.";
 			std::cout << "Vous avez maintenant " << player->getLife() << " points de vie et " << player->getMana() << " points de magie" << std::endl;
 		}
 		else {
 
-			std::cout << "[ " << player->getName() << " => " << player->getName() << " ] Vous n'arrivez pas à vous soigner. " << player->getMana() << " points de magie restants" << std::endl;
+			std::cout << "[ VOUS => VOUS ] Vous n'arrivez pas à vous soigner. " << player->getMana() << " points de magie restants" << std::endl;
 
 		}
 		enemy->setShield(1);
@@ -296,17 +296,17 @@ void Game::enemyChooseAction() {
 	// shield
 	if (random < 20 && enemy->getShield() == 1) {
 		enemy->absorbDamage();
-		std::cout << "[ " << enemy->getName() << " => " << enemy->getName() << " ] L'ennemi se prepare a absorber la prochaine attaque !" << std::endl << std::endl;
+		std::cout << "[ ENNEMI <= ENNEMI ] L'ennemi se prepare a absorber la prochaine attaque !" << std::endl << std::endl;
 		enemy->incMana(3);
 	}
 	//heal
 	else if (random >= 20 && random < 45 && enemy->getLife() <= enemy->getLifeMax() / 2 && enemy->heal()) {
-		std::cout << "[ " << enemy->getName() << " => " << enemy->getName() << " ] L'ennemi se soigne !" << std::endl << std::endl;
+		std::cout << "[ ENNEMI <= ENNEMI ] L'ennemi se soigne !" << std::endl << std::endl;
 	}
 	// atk
 	else {
 		enemy->giveDamage(*player);
-		std::cout << "[ " << player->getName() << " <= " << enemy->getName() << " ] L'ennemi fonce sur vous, vous perdez des points de vie !" << std::endl << std::endl;
+		std::cout << "[ VOUS <= ENNEMI ] L'ennemi fonce sur vous, vous perdez des points de vie !" << std::endl << std::endl;
 		enemy->incMana(3);
 	}
 }
