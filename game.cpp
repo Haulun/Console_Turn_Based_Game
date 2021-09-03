@@ -13,7 +13,6 @@ void Game::initGame() {
 	stage = 0;
 	turn = 1;
 	deadMob = 0;
-	isEnemyDead = true;
 	gameShouldStop = false;
 
 	player = chooseHero();
@@ -23,20 +22,20 @@ void Game::initGame() {
 void Game::mainLoop() {
 	while (!gameShouldStop) {
 
+		if (enemy->isDead()) {
+			if (enemy != nullptr) {
+				handleEnemyDeath();
+				createNewEnemy();
+			}
+			else {
+				createNewEnemy();
+			}
+		}
+
 		std::cout << "==========> TOUR " << turn << " <==========" << std::endl << std::endl;
 
-		if (isEnemyDead) {
-			createNewEnemy();
-		}
-
-		playerChooseAction();
-
-		if (enemy->isDead()) {
-			handleEnemyDeath();
-		}
-		else {
-			enemyChooseAction();
-		}
+		playerRunAction();
+		enemyChooseAction();
 
 		turn += 1;
 
@@ -127,11 +126,11 @@ std::unique_ptr<Entity> Game::chooseHero() {
 
 void Game::createNewEnemy() {
 	int category = rand() % 100;
-	if (category < 30) {
+	if (category < 35) {
 		enemy = makeTroll(stage);
 		std::cout << "/!\\ Attention, un Troll apparait /!\\\n" << std::endl;;
 	}
-	else if (category >= 30) {
+	else if (category >= 35) {
 		enemy = makeGoblin(stage);
 		std::cout << "/!\\ Attention, un Gobelin apparait /!\\\n" << std::endl;
 	}
@@ -139,14 +138,12 @@ void Game::createNewEnemy() {
 	{
 		std::cout << "Erreur a la creation de l'ennemi" << std::endl;
 	}
-	isEnemyDead = false;
 }
 
 void Game::handleEnemyDeath() {
 	bool leveledUp = false;
-	isEnemyDead = true;
 	leveledUp = player->takeXp(enemy->getXp());
-	std::cout << std::endl << "INFO : Votre ennemi est mort dans d'atroces souffrances !" << std::endl;
+	std::cout << std::endl << "INFO : Votre ennemi est mort dans d'atroces souffrances !" << std::endl << std::endl;
 	deadMob += 1;
 
 	if (leveledUp == true) {
@@ -192,12 +189,12 @@ std::unique_ptr<Entity> Game::makeKnight() {
 
 std::unique_ptr<Entity> Game::makeWizard() {
 	int atk = 12;
-	int manaMax = 110;
+	int manaMax = 120;
 	int lifeMax = 80;
 	double shieldMax = 0.6;
 	int xp = 0;
 
-	return std::make_unique<Entity>(manaMax, lifeMax, shieldMax, xp);
+	return std::make_unique<Entity>(atk, manaMax, lifeMax, shieldMax, xp);
 }
 
 void Game::levelUp() {
@@ -232,7 +229,7 @@ void Game::levelUp() {
 	}
 }
 
-void Game::playerChooseAction() {
+void Game::playerRunAction() {
 	std::string playerInput;
 
 	std::cout << "Choisissez une action :" << std::endl;
@@ -292,21 +289,36 @@ void Game::playerChooseAction() {
 
 void Game::enemyChooseAction() {
 	int random = rand() % 100;
-
 	// shield
 	if (random < 20 && enemy->getShield() == 1) {
+		enemyExecuteAction("s");
+	}
+	//heal
+	else if (random >= 20 && random < 45 && enemy->getLife() <= enemy->getLifeMax() / 2 && enemy->heal()) {
+		enemyExecuteAction("h");
+	}
+	// atk
+	else {
+		enemyExecuteAction("a");
+	}
+}
+
+void Game::enemyExecuteAction(std::string choice) {
+	if (choice == "a") {
+		enemy->giveDamage(*player);
+		std::cout << "[ VOUS <= ENNEMI ] L'ennemi fonce sur vous, vous perdez des points de vie !" << std::endl << std::endl;
+		enemy->incMana(3);
+	}
+	else if (choice == "s") {
 		enemy->absorbDamage();
 		std::cout << "[ ENNEMI <= ENNEMI ] L'ennemi se prepare a absorber la prochaine attaque !" << std::endl << std::endl;
 		enemy->incMana(3);
 	}
-	//heal
-	else if (random >= 20 && random < 45 && enemy->getLife() <= enemy->getLifeMax() / 2 && enemy->heal()) {
+	else if (choice == "h") {
 		std::cout << "[ ENNEMI <= ENNEMI ] L'ennemi se soigne !" << std::endl << std::endl;
 	}
-	// atk
-	else {
-		enemy->giveDamage(*player);
-		std::cout << "[ VOUS <= ENNEMI ] L'ennemi fonce sur vous, vous perdez des points de vie !" << std::endl << std::endl;
-		enemy->incMana(3);
+	else
+	{
+		std::cout << "/!\\ Erreur lors de l'execution de l'action de l'ennemi" << std::endl << std::endl;
 	}
 }
