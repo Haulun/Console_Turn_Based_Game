@@ -230,7 +230,7 @@ void Game::playerRunAction() {
 		player->absorbDamage();
 		std::cout << "[ VOUS => VOUS ] Vous vous defendez. ";
 		std::cout << "Vous prenez " << player->getShield() * 100 << "% des degats totaux !" << std::endl;
-		enemy->setShield(1);
+		enemy->resetShield();
 		player->incMana(5);
 	}
 	else if (playerInput == "h") {
@@ -246,7 +246,7 @@ void Game::playerRunAction() {
 			std::cout << "[ VOUS => VOUS ] Vous n'arrivez pas à vous soigner. " << player->getMana() << " points de magie restants" << std::endl;
 
 		}
-		enemy->setShield(1);
+		enemy->resetShield();
 
 	}
 	else if (playerInput == "q") {
@@ -259,7 +259,7 @@ void Game::playerRunAction() {
 		interface.clearConsole();	
 		std::cout << "Vous ratez votre coup..." << std::endl << std::endl;
 		player->incMana(5);
-		enemy->setShield(1);
+		enemy->resetShield();
 	}
 }
 
@@ -289,9 +289,11 @@ void Game::enemyExecuteAction(std::string choice) {
 		enemy->absorbDamage();
 		std::cout << "[ ENNEMI <= ENNEMI ] L'ennemi se prepare a absorber la prochaine attaque !" << std::endl << std::endl;
 		enemy->incMana(3);
+		player->resetShield();
 	}
 	else if (choice == "h") {
 		std::cout << "[ ENNEMI <= ENNEMI ] L'ennemi se soigne !" << std::endl << std::endl;
+		player->resetShield();
 	}
 	else
 	{

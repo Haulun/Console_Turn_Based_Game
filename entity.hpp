@@ -18,6 +18,7 @@ public:
 	void giveDamage(Entity &aim) const;
 	void absorbDamage();
 	bool heal();
+	void resetShield();
 
 	//All that an object can take	
 	void takeDamage(int atk);
@@ -28,6 +29,7 @@ public:
 	void incShieldMax(double bonusShield);
 	void incAtk(int bonusAtk);
 	void incMana(int bonusMana);
+
 
 	//Can the object be destroyed ?
 	bool isDead();
@@ -41,8 +43,6 @@ public:
 	int getMana() const;
 	int getLevel() const;
 
-	//Setters
-	void setShield(double newShield);
 
 
 protected:
