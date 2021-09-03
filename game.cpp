@@ -1,11 +1,8 @@
 #include "game.hpp"
 
-<<<<<<< HEAD
 //DESTRUCTOR
 Game::~Game(){};
 
-=======
->>>>>>> 8e0ea769ec5be291e737684820f5072c4a4b5bea
 //MAIN FUNCTIONS
 
 void Game::run() {
