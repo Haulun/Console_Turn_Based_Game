@@ -39,6 +39,12 @@ private:
 	bool canStageUp();
 
 	void playerRunAction();
-	void enemyChooseAction();
+	std::string playerChooseAction();
+	bool playerExecuteAction(std::string choice);
+	void playerDisplayAction(std::string choice, bool actionSuccess);
+
+	void enemyRunAction();
+	std::string enemyChooseAction();
 	void enemyExecuteAction(std::string choice);
+	void enemyDisplayAction(std::string choice);
 };

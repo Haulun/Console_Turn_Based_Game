@@ -51,7 +51,7 @@ void Game::mainLoop() {
 		
 		if (!gameShouldStop) {
 
-			enemyChooseAction();
+			enemyRunAction();
 
 			// Display lives :
 			std::cout << " ENNEMI : " << enemy->getLife() << " points de vie !" << std::endl;
@@ -212,6 +212,13 @@ void Game::levelUp() {
 }
 
 void Game::playerRunAction() {
+	std::string choice = playerChooseAction();
+	bool actionSuccess = playerExecuteAction(choice);
+	playerDisplayAction(choice, actionSuccess);
+
+}
+
+std::string Game::playerChooseAction() {
 	std::string playerInput;
 
 	std::cout << "Choisissez une action :" << std::endl;
@@ -223,90 +230,129 @@ void Game::playerRunAction() {
 	std::cout << "Votre choix : ";
 	std::cin >> playerInput;
 	std::cout << std::endl;
-	if (playerInput == "a") {
-		interface.clearConsole();
 
+	return playerInput;
+}
+
+bool Game::playerExecuteAction(std::string choice) {
+	bool actionSuccess = true;
+	if(choice=="a"){
 		player->giveDamage(*enemy);
-		std::cout << "[ VOUS => ENNEMI ] Vous attaquez votre ennemi ! " << std::endl;
 		player->incMana(5);
 	}
-	else if (playerInput == "s") {
-		interface.clearConsole();
-
+	else if(choice=="s"){
 		player->absorbDamage();
-		std::cout << "[ VOUS => VOUS ] Vous vous defendez jusqu'à la fin du tour. ";
-		std::cout << "réduction de " << player->getShield() * 100 << "% des degats totaux !" << std::endl;
 		enemy->resetShield();
 		player->incMana(5);
 	}
-	else if (playerInput == "h") {
-		interface.clearConsole();
-
-
+	else if(choice=="h"){
 		if (player->healable()) {
 			player->heal();
+		}
+		else {
+			actionSuccess = false;
+		}
+		enemy->resetShield();
+	}
+	else if(choice=="q"){
+		gameShouldStop = true;
+	}
+	else{
+			player->incMana(5);
+			enemy->resetShield();
+			actionSuccess = false;
+	}
+	return actionSuccess;
+}
+
+void Game::playerDisplayAction(std::string choice, bool actionSuccess) {
+
+	interface.clearConsole();
+
+	if(choice=="a"){
+		std::cout << "[ VOUS => ENNEMI ] Vous attaquez votre ennemi ! " << std::endl;
+	}
+	else if(choice=="s"){
+		std::cout << "[ VOUS => VOUS ] Vous vous defendez jusqu'à la fin du tour. ";
+		std::cout << "réduction de " << player->getShield() * 100 << "% des degats totaux !" << std::endl;
+	}
+	else if(choice=="h"){
+		if(actionSuccess){
 			std::cout << "[ VOUS => VOUS ] Vous vous soignez avec 80 points de mana. ";
 			std::cout << "Vous avez maintenant " << player->getLife() << " points de vie" << std::endl;
 		}
 		else {
-
 			std::cout << "[ VOUS => VOUS ] Vous n'arrivez pas a vous soigner : vous n'avez pas assez de mana ou il vous reste plus de la moitie de votre vie." << std::endl;
-
 		}
-		enemy->resetShield();
-
 	}
-	else if (playerInput == "q") {
-		interface.clearConsole();
-
-		gameShouldStop = true;
-
-	}
+	else if(choice=="q"){
+	} 
 	else {
-		interface.clearConsole();	
 		std::cout << "Vous ratez votre coup..." << std::endl << std::endl;
-		player->incMana(5);
-		enemy->resetShield();
 	}
+	
 }
 
-void Game::enemyChooseAction() {
+void Game::enemyRunAction() {
+	std::string choice = enemyChooseAction();
+
+	enemyExecuteAction(choice);
+
+	enemyDisplayAction(choice);
+}
+
+std::string Game::enemyChooseAction() {
 	int random = rand() % 100;
 	// shield
 	if (random < 20 && enemy->getShield() == 1) {
-		enemyExecuteAction("s");
+		return "s";
 	}
 	//heal
 	else if (random >= 20 && random < 45 && enemy->healable()) {
-		enemyExecuteAction("h");
+		return "h";
 	}
 	// atk
 	else {
-		enemyExecuteAction("a");
+		return "a";
 	}
 }
 
 void Game::enemyExecuteAction(std::string choice) {
-	if (choice == "a") {
+	if(choice=="a"){ // attack
 		enemy->giveDamage(*player);
-		std::cout << "[ VOUS <= ENNEMI ] L'ennemi fonce sur vous, vous perdez des points de vie !" << std::endl << std::endl;
 		enemy->incMana(3);
 	}
-	else if (choice == "s") {
+	else if(choice=="s"){ // shield	
 		enemy->absorbDamage();
-		std::cout << "[ ENNEMI <= ENNEMI ] L'ennemi se prepare a absorber la prochaine attaque !" << std::endl << std::endl;
 		enemy->incMana(3);
 		player->resetShield();
 	}
-	else if (choice == "h") {
+	else if(choice=="h"){ // heal
 		enemy->heal();
-		std::cout << "[ ENNEMI <= ENNEMI ] L'ennemi se soigne !" << std::endl << std::endl;
 		player->resetShield();
 	}
-	else
-	{
-		std::cout << "/!\\ Erreur lors de l'execution de l'action de l'ennemi" << std::endl << std::endl;
+	else {
+		std::cout << "ERREUR EXECUTION ENNEMI" << std::endl;
+	}	
+
+}
+
+
+void Game::enemyDisplayAction(std::string choice) {
+
+	if(choice=="a"){ // attack
+		std::cout << "[ VOUS <= ENNEMI ] L'ennemi fonce sur vous, vous perdez des points de vie !" << std::endl << std::endl;
 	}
+	else if(choice=="s"){ // shield	
+		std::cout << "[ ENNEMI <= ENNEMI ] L'ennemi se prepare a absorber la prochaine attaque !" << std::endl << std::endl;
+	}
+	else if(choice=="h"){ // heal
+		std::cout << "[ ENNEMI <= ENNEMI ] L'ennemi se soigne !" << std::endl << std::endl;
+	}
+	else{
+		std::cout << "ERREUR AFFICHAGE ENNEMI" << std::endl;
+	}		
+
 }
 
 
