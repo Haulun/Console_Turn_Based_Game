@@ -1,5 +1,7 @@
 #include "entity.hpp"
 
+Entity::Entity() {}
+
 Entity::Entity(int atk, int manaMax, int lifeMax, double shieldMax, int xp) {
 	m_atk = atk;
 	m_manaMax = manaMax;
@@ -13,6 +15,10 @@ Entity::Entity(int atk, int manaMax, int lifeMax, double shieldMax, int xp) {
 	m_mana = m_manaMax;
 }
 
+
+Entity::~Entity() {
+
+}
 
 void Entity::giveDamage(Entity& aim) const {
 	aim.takeDamage(m_atk);
@@ -81,9 +87,9 @@ void Entity::incMana(int bonusMana) {
 }
 
 bool Entity::isDead() {
-	if 	(this != nullptr) {
+	if (this != nullptr) {
 		if (m_life == 0) {
-			this->~Entity();
+			Entity::~Entity();
 			return true;
 		}
 		else {

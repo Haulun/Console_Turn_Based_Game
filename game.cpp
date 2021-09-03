@@ -1,9 +1,5 @@
 #include "game.hpp"
 
-//DESTRUCTOR
-Game::~Game(){};
-
-
 //MAIN FUNCTIONS
 
 void Game::run() {
@@ -26,20 +22,6 @@ void Game::initGame() {
 void Game::mainLoop() {
 	while (!gameShouldStop) {
 
-		if (player->isDead()) {
-			std::string choice;
-
-			std::cout << "==========> Vous etes mort <==========" << std::endl;
-			std::cout << "============> Fin du jeu <============" << std::endl << std::endl;
-			std::cout << "Etage atteint : " << stage << std::endl;
-			std::cout << "Niveau atteint : " << player->getLevel() << std::endl;
-			std::cout << "Nombre de mobs tues : " << deadMob << std::endl << std::endl;
-			break;
-
-		}
-
-
-
 		if (enemy->isDead()) {
 			if (enemy != nullptr) {
 				handleEnemyDeath();
@@ -59,7 +41,36 @@ void Game::mainLoop() {
 
 		//Replay or not when the player dies :
 
+		if (player->isDead()) {
+			std::string choice;
 
+			std::cout << "==========> Vous etes mort <==========" << std::endl;
+			std::cout << "============> Fin du jeu <============" << std::endl << std::endl;
+			std::cout << "Etage atteint : " << stage << std::endl;
+			std::cout << "Niveau atteint : " << player->getLevel() << std::endl;
+			std::cout << "Nombre de mobs tues : " << deadMob << std::endl << std::endl;
+
+			std::cout << "Voulez-vous recommencer : " << std::endl;
+			std::cout << "	- \"o\" pour oui" << std::endl;
+			std::cout << "	- \"n\" pour non" << std::endl;
+
+			std::cout << "Votre choix : ";
+
+			do {
+				std::cin >> choice;
+
+				if (choice != "o" && choice != "n") {
+					std::cout << "Caractere non valide ! Veuillez reessayer\n" << std::endl;
+				}
+			} while (choice != "o" && choice != "n");
+
+			if (choice == "o") {
+				initGame();
+			}
+			else {
+				TerminateGame();
+			}
+		}
 
 		if (!gameShouldStop) {
 			// Display lives :
