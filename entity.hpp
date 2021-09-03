@@ -4,6 +4,7 @@
 //std
 #include <string>
 #include <cstdlib>
+#include <memory>
 
 
 class Entity {
@@ -17,12 +18,12 @@ public:
 	//Basic actions
 	void giveDamage(Entity &aim) const;
 	void absorbDamage();
-	bool heal();
+	void heal();
 	void resetShield();
 
 	//All that an object can take	
 	void takeDamage(int atk);
-	bool takeXp(int xp);
+	bool takeXp(std::unique_ptr<Entity> &entity);
 
 	//Incrementations
 	void incLifeMax(int bonusLife);
@@ -31,13 +32,14 @@ public:
 	void incMana(int bonusMana);
 
 
-	//Can the object be destroyed ?
+	//Can the object ... ?
 	bool isDead();
+
+	bool healable();
 
 	//Getters
 	int getXp() const; 
 	int getLife() const;
-	int getLifeMax() const;
 	int getAtk() const;
 	double getShield() const;
 	int getMana() const;

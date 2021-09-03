@@ -36,6 +36,7 @@ private:
 	std::unique_ptr<Entity> makeWizard();
 
 	void levelUp();
+	bool canStageUp();
 
 	void playerRunAction();
 	void enemyChooseAction();

@@ -23,17 +23,11 @@ void Entity::absorbDamage() {
 	m_shield = m_shieldMax;
 }
 
-bool Entity::heal() {
-	if (m_mana >= 80) {
-		m_life += (int)(m_lifeMax / 0.5);
-		m_mana -= 80;
-		if (m_life > m_lifeMax) {
-			m_life = m_lifeMax;
-		}
-		return true;
-	}
-	else {
-		return false;
+void Entity::heal() {
+	m_life += (int)(m_lifeMax / 2);
+	m_mana -= 80;
+	if (m_life > m_lifeMax) {
+		m_life = m_lifeMax;
 	}
 }
 
@@ -46,14 +40,14 @@ void Entity::takeDamage(int atk) {
 	}
 }
 
-bool Entity::takeXp(int xp) {
+bool Entity::takeXp(std::unique_ptr<Entity> &entity) {
 	if (m_xp >= 50 + m_level * 50) {
 		m_xp -= 50 + m_level * 50;
 		m_level += 1;
 		return true;
 	}
 	else {
-		m_xp += xp;
+		m_xp += entity->getXp();
 		return false;
 	}
 }
@@ -97,6 +91,11 @@ bool Entity::isDead() {
 	
 }
 
+bool Entity::healable() {
+	return m_life <= m_lifeMax / 2 && m_mana >= 80;
+}
+
+
 void Entity::resetShield() {
 	m_shield = 1.0;
 }
@@ -109,10 +108,6 @@ int Entity::getXp() const {
 
 int Entity::getLife() const {
 	return m_life;
-}
-
-int Entity::getLifeMax() const {
-	return m_lifeMax;
 }
 
 int Entity::getAtk() const {

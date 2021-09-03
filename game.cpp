@@ -118,19 +118,25 @@ void Game::createNewEnemy() {
 
 void Game::handleEnemyDeath() {
 	bool leveledUp = false;
-	leveledUp = player->takeXp(enemy->getXp());
+	leveledUp = player->takeXp(enemy);
+
+
 	std::cout << std::endl << "INFO : Votre ennemi est mort dans d'atroces souffrances !" << std::endl << std::endl;
 	deadMob += 1;
 
 	if (leveledUp == true) {
 		levelUp();
+	
+		if (canStageUp()) {
+			stage += 1;
+			std::cout << "INFO : Bravo ! Vous passez à l'etage suivant" << std::endl << std::endl;
+
+		}
+
+
 	}
 
-	if (leveledUp && player->getLevel() % 5 == 0 && player->getLevel() != 0) {
-		stage += 1;
-		std::cout << "INFO : Bravo ! Vous passez à l'etage suivant" << std::endl << std::endl;
-
-	}
+	
 }
 
 std::unique_ptr<Entity> Game::makeTroll(int stage) {
@@ -228,8 +234,8 @@ void Game::playerRunAction() {
 		interface.clearConsole();
 
 		player->absorbDamage();
-		std::cout << "[ VOUS => VOUS ] Vous vous defendez. ";
-		std::cout << "Vous prenez " << player->getShield() * 100 << "% des degats totaux !" << std::endl;
+		std::cout << "[ VOUS => VOUS ] Vous vous defendez jusqu'à la fin du tour. ";
+		std::cout << "réduction de " << player->getShield() * 100 << "% des degats totaux !" << std::endl;
 		enemy->resetShield();
 		player->incMana(5);
 	}
@@ -237,13 +243,14 @@ void Game::playerRunAction() {
 		interface.clearConsole();
 
 
-		if (player->heal()) {
-			std::cout << "[ VOUS => VOUS ] Vous vous soignez.";
-			std::cout << "Vous avez maintenant " << player->getLife() << " points de vie et " << player->getMana() << " points de magie" << std::endl;
+		if (player->healable()) {
+			player->heal();
+			std::cout << "[ VOUS => VOUS ] Vous vous soignez avec 80 points de mana. ";
+			std::cout << "Vous avez maintenant " << player->getLife() << " points de vie" << std::endl;
 		}
 		else {
 
-			std::cout << "[ VOUS => VOUS ] Vous n'arrivez pas à vous soigner. " << player->getMana() << " points de magie restants" << std::endl;
+			std::cout << "[ VOUS => VOUS ] Vous n'arrivez pas a vous soigner : vous n'avez pas assez de mana ou il vous reste plus de la moitie de votre vie." << std::endl;
 
 		}
 		enemy->resetShield();
@@ -270,7 +277,7 @@ void Game::enemyChooseAction() {
 		enemyExecuteAction("s");
 	}
 	//heal
-	else if (random >= 20 && random < 45 && enemy->getLife() <= enemy->getLifeMax() / 2 && enemy->heal()) {
+	else if (random >= 20 && random < 45 && enemy->healable()) {
 		enemyExecuteAction("h");
 	}
 	// atk
@@ -292,6 +299,7 @@ void Game::enemyExecuteAction(std::string choice) {
 		player->resetShield();
 	}
 	else if (choice == "h") {
+		enemy->heal();
 		std::cout << "[ ENNEMI <= ENNEMI ] L'ennemi se soigne !" << std::endl << std::endl;
 		player->resetShield();
 	}
@@ -299,4 +307,9 @@ void Game::enemyExecuteAction(std::string choice) {
 	{
 		std::cout << "/!\\ Erreur lors de l'execution de l'action de l'ennemi" << std::endl << std::endl;
 	}
+}
+
+
+bool Game::canStageUp(){
+	return player->getLevel() % 5 == 0; 
 }
