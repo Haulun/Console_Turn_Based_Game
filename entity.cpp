@@ -97,6 +97,10 @@ bool Entity::isDead() {
 	
 }
 
+void Entity::resetShield() {
+	m_shield = 1.0;
+}
+
 //Getters :
 
 int Entity::getXp() const {
@@ -126,7 +130,3 @@ int Entity::getLevel() const{
 	return m_level;
 }
 
-//Setters :
-void Entity::setShield(double newShield) {
-	m_shield = newShield;
-}
