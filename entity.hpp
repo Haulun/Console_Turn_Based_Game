@@ -46,7 +46,6 @@ public:
 
 
 protected:
-	std::string m_name = "NONAME";
 	int m_life = 100;
 	double m_shield = 0;
 	int m_atk = 10;
