@@ -7,13 +7,18 @@ Installation :
 git clone git@github.com:Haulun/Console_Turn_Based_Game.git 
 ```
 
-Compilation : 
+Compilation / Execution: 
 
- - if you use g++ : 
+ - With g++ : 
 ``` 
 g++ main.cpp entity.cpp game.cpp -o main
+./main
 ```
-
+ - With make (g++)
+```
+make build
+make run
+```
 Description : 
 
 That game uses input/output terminal, player can chose a character between 2 classes (Wizard and Knight).
