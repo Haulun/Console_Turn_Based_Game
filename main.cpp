@@ -5,9 +5,8 @@
 
 int main() {
 	
-
 	try {
-		while(true){
+		while (true) {
 
 			Game game;
 			game.run();
@@ -26,13 +25,11 @@ int main() {
 					std::cout << "Caractere non valide ! Veuillez reessayer\n" << std::endl;
 				}
 			} while (choice != "o" && choice != "n");
-	
 			if (choice == "n") {
 				break;
 			}
 
 			game.~Game();
-		
 		}
 	}
 	catch (const std::exception& e) {
