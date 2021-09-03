@@ -28,13 +28,13 @@ void Entity::takeDamage(int atk) {
 }
 
 bool Entity::takeXp(std::unique_ptr<Entity> &entity) {
-	if (m_xp >= 50 + m_level * 50) {
-		m_xp -= 50 + m_level * 50;
+	m_xp += entity->getXp();
+	if (m_xp >= 50 + m_level * 25) {
+		m_xp -= 50 + m_level * 25;
 		m_level += 1;
 		return true;
 	}
 	else {
-		m_xp += entity->getXp();
 		return false;
 	}
 }

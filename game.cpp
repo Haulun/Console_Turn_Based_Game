@@ -17,11 +17,8 @@ void Game::initGame() {
 //Game Loop
 void Game::mainLoop() {
 	while (!gameShouldStop) {
-
-
 		//Replay or not when the player dies :
 		if (player->isDead()) {
-			std::string choice;
 
 			std::cout << "==========> Vous etes mort <==========" << std::endl;
 			std::cout << "============> Fin du jeu <============" << std::endl << std::endl;
@@ -30,7 +27,6 @@ void Game::mainLoop() {
 			std::cout << "Nombre de mobs tues : " << deadMob << std::endl << std::endl;
 			break;
 		}
-
 
 		if (enemy->isDead()) {
 			if (enemy != nullptr) {
@@ -43,9 +39,7 @@ void Game::mainLoop() {
 		}
 
 		std::cout << "==========> TOUR " << turn << " <==========" << std::endl << std::endl;
-
 		turn += 1;
-
 
 		playerRunAction();
 		
@@ -58,6 +52,7 @@ void Game::mainLoop() {
 			std::cout << " VOUS : " << player->getLife() << " points de vie !" << std::endl << std::endl;
 
 			std::cout << "INFO : Vous avez actuellement " << player->getMana() << " points de mana" << std::endl << std::endl;
+			
 		}
 		else {
 			std::cout << std::endl << "INFO : Fermeture du jeu" << std::endl;
@@ -66,12 +61,12 @@ void Game::mainLoop() {
 	}
 }
 
-//Game Closing
+//Game ends
 void Game::TerminateGame() {
 	gameShouldStop = true;
 }
 
-//OTHER FUNCTIONS
+//OTHER FUNCTIONS :
 
 std::unique_ptr<Entity> Game::chooseHero() {
 	std::cout << "Choisissez une classe : \n";
@@ -91,23 +86,22 @@ std::unique_ptr<Entity> Game::chooseHero() {
 
 	if (choice == "w") {
 		std::cout << std::endl << "Vous avez choisi Jean(ne) le mage !" << std::endl << std::endl;
-		return makeWizard();
-
+		return entityMaker.makeWizard();
 	}
 	else {
 		std::cout << std::endl << "Vous avez choisi Arthure(ette) le chevalier !" << std::endl << std::endl;
-		return makeKnight();
+		return entityMaker.makeKnight();
 	}
 }
 
 void Game::createNewEnemy() {
 	int category = rand() % 100;
 	if (category < 35) {
-		enemy = makeTroll(stage);
+		enemy = entityMaker.makeTroll(stage);
 		std::cout << "/!\\ Attention, un Troll apparait /!\\\n" << std::endl;;
 	}
 	else if (category >= 35) {
-		enemy = makeGoblin(stage);
+		enemy = entityMaker.makeGoblin(stage);
 		std::cout << "/!\\ Attention, un Gobelin apparait /!\\\n" << std::endl;
 	}
 	else
@@ -119,10 +113,12 @@ void Game::createNewEnemy() {
 void Game::handleEnemyDeath() {
 	bool leveledUp = false;
 	leveledUp = player->takeXp(enemy);
+	
 
 
-	std::cout << std::endl << "INFO : Votre ennemi est mort dans d'atroces souffrances !" << std::endl << std::endl;
+	std::cout << std::endl << "INFO : Votre ennemi est mort dans d'atroces souffrances !" << std::endl;
 	deadMob += 1;
+	std::cout << "INFO : Vous avez actuellement " << player->getXp() << " points d'experience" << std::endl << std::endl;
 
 	if (leveledUp == true) {
 		eventLevelUp();
@@ -130,55 +126,11 @@ void Game::handleEnemyDeath() {
 		if (canStageUp()) {
 			stage += 1;
 			std::cout << "INFO : Bravo ! Vous passez à l'etage suivant" << std::endl << std::endl;
-
 		}
-
-
 	}
-
-	
 }
 
-std::unique_ptr<Entity> Game::makeTroll(int stage) {
-	int atk = 8 + stage * 2;
-	int manaMax = 80;
-	int lifeMax = 150 + stage * 15;
-	double shieldMax = 0.9 - stage * 0.05;
-	int xp = 30;
-
-	return std::make_unique<Entity>(atk, manaMax, lifeMax, shieldMax, xp);
-}
-
-std::unique_ptr<Entity> Game::makeGoblin(int stage) {
-	int atk = 3 + stage * 1;
-	int manaMax = 80;
-	int lifeMax = 50 + stage * 10;
-	double shieldMax = 0.65 - stage * 0.05;
-	int xp = 90;
-
-	return std::make_unique<Entity>(atk, manaMax, lifeMax, shieldMax, xp);
-}
-
-std::unique_ptr<Entity> Game::makeKnight() {
-	int atk = 15;
-	int manaMax = 80;
-	int lifeMax = 100;
-	double shieldMax = 0.6;
-	int xp = 0;
-
-	return std::make_unique<Entity>(atk, manaMax, lifeMax, shieldMax, xp);
-}
-
-std::unique_ptr<Entity> Game::makeWizard() {
-	int atk = 12;
-	int manaMax = 120;
-	int lifeMax = 80;
-	double shieldMax = 0.6;
-	int xp = 0;
-
-	return std::make_unique<Entity>(atk, manaMax, lifeMax, shieldMax, xp);
-}
-
+//UPGRADES :
 void Game::eventLevelUp() {
 	std::string playerInput;
 
@@ -197,6 +149,11 @@ void Game::eventLevelUp() {
 	player->levelUp(playerInput);
 }
 
+bool Game::canStageUp() {
+	return player->getLevel() % 5 == 0;
+}
+
+//PLAYER ACTION :
 void Game::playerRunAction() {
 	std::string choice = playerChooseAction();
 	bool actionSuccess = playerExecuteAction(choice);
@@ -259,8 +216,8 @@ void Game::playerDisplayAction(std::string choice, bool actionSuccess) {
 		std::cout << "[ VOUS => ENNEMI ] Vous attaquez votre ennemi ! " << std::endl;
 	}
 	else if(choice=="s"){
-		std::cout << "[ VOUS => VOUS ] Vous vous defendez jusqu'à la fin du tour. ";
-		std::cout << "réduction de " << player->getShield() * 100 << "% des degats totaux !" << std::endl;
+		std::cout << "[ VOUS => VOUS ] Vous vous defendez jusqu'a la fin du tour. ";
+		std::cout << "reduction de " << player->getShield() * 100 << "% des degats totaux !" << std::endl;
 	}
 	else if(choice=="h"){
 		if(actionSuccess){
@@ -279,6 +236,7 @@ void Game::playerDisplayAction(std::string choice, bool actionSuccess) {
 	
 }
 
+//ENEMY ACTION :
 void Game::enemyRunAction() {
 	std::string choice = enemyChooseAction();
 
@@ -342,6 +300,4 @@ void Game::enemyDisplayAction(std::string choice) {
 }
 
 
-bool Game::canStageUp(){
-	return player->getLevel() % 5 == 0; 
-}
+
