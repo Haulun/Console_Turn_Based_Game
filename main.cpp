@@ -5,10 +5,11 @@
 
 int main() {
 	
-	Game game;
+	
 		try {
 			while(true){
 	
+				Game game;
 				game.run();
 
 				std::string choice;
@@ -30,6 +31,8 @@ int main() {
 				if (choice == "n") {
 					break;
 				}
+
+				game.~Game();
 			
 			}
 		}
