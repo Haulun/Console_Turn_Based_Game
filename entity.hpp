@@ -10,9 +10,9 @@ class Entity {
 public:
 		
 	//Constructors and Destructor
-	Entity();
+	Entity() = default;
 	Entity(int atk, int mana, int m_lifeMax, double shieldMax, int xp);
-	~Entity();
+	~Entity() = default;
 
 	//Basic actions
 	void giveDamage(Entity &aim) const;
