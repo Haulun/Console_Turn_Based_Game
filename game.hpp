@@ -11,10 +11,10 @@ public:
 	void run();
 	~Game();
 private:
-	int stage;
-	int turn;
-	int deadMob;
-	bool gameShouldStop;
+	int stage = 0;
+	int turn = 1;
+	int deadMob = 0;
+	bool gameShouldStop = false;
 
 	std::unique_ptr<Entity> player;
 	std::unique_ptr<Entity> enemy;
