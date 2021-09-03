@@ -25,7 +25,8 @@ public:
 	void takeDamage(int atk);
 	bool takeXp(std::unique_ptr<Entity> &entity);
 
-	//Incrementations
+	//For levelUp
+	void levelUp(std::string choice);
 	void incLifeMax(int bonusLife);
 	void incShieldMax(double bonusShield);
 	void incAtk(int bonusAtk);

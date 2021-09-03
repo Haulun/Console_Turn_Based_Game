@@ -125,7 +125,7 @@ void Game::handleEnemyDeath() {
 	deadMob += 1;
 
 	if (leveledUp == true) {
-		levelUp();
+		eventLevelUp();
 	
 		if (canStageUp()) {
 			stage += 1;
@@ -154,7 +154,7 @@ std::unique_ptr<Entity> Game::makeGoblin(int stage) {
 	int manaMax = 80;
 	int lifeMax = 50 + stage * 10;
 	double shieldMax = 0.65 - stage * 0.05;
-	int xp = 10;
+	int xp = 90;
 
 	return std::make_unique<Entity>(atk, manaMax, lifeMax, shieldMax, xp);
 }
@@ -179,7 +179,7 @@ std::unique_ptr<Entity> Game::makeWizard() {
 	return std::make_unique<Entity>(atk, manaMax, lifeMax, shieldMax, xp);
 }
 
-void Game::levelUp() {
+void Game::eventLevelUp() {
 	std::string playerInput;
 
 	std::cout << "INFO : Vous etes maintenant level " << player->getLevel() << " ! Bravo *clap* *clap* !" << std::endl << std::endl;
@@ -190,25 +190,11 @@ void Game::levelUp() {
 	while (playerInput != "life" && playerInput != "shield" && playerInput != "attack") {
 		std::cout << "Votre choix : ";
 		std::cin >> playerInput;
-		std::cout << std::endl;
-		if (playerInput == "life") {
-			player->incLifeMax(10);
-			std::cout << "Vous avez maintenant " << player->getLife() << " points de vie !" << std::endl << std::endl;
-
-		}
-		else if (playerInput == "shield") {
-			player->incShieldMax(0.05);
-			std::cout << "Vous avez maintenant " << player->getShield() << " de defense !" << std::endl << std::endl;
-		}
-		else if (playerInput == "attack") {
-			player->incAtk(2);
-			std::cout << "Vous avez maintenant " << player->getAtk() << " d'attaque !" << std::endl << std::endl;
-		}
-		else
-		{
-			std::cout << "Caractere non valide" << std::endl << std::endl;
+		if (playerInput != "life" && playerInput != "shield" && playerInput != "attack") {
+			std::cout << "Mot non valide" << std::endl;
 		}
 	}
+	player->levelUp(playerInput);
 }
 
 void Game::playerRunAction() {
