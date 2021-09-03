@@ -13,8 +13,6 @@ Entity::Entity(int atk, int manaMax, int lifeMax, double shieldMax, int xp) {
 	m_mana = m_manaMax;
 }
 
-
-
 void Entity::giveDamage(Entity& aim) const {
 	aim.takeDamage(m_atk);
 }
@@ -52,7 +50,19 @@ bool Entity::takeXp(std::unique_ptr<Entity> &entity) {
 	}
 }
 
-//Incrementations :
+//For levelUp :
+
+void Entity::levelUp(std::string choice) {
+	if (choice == "life") {
+		incLifeMax(10);
+	}
+	else if (choice == "shield") {
+		incShieldMax(0.05);
+	}
+	else if (choice == "attack") {
+		incAtk(2);
+	}
+}
 
 void Entity::incLifeMax(int bonusLife) {
 	m_lifeMax += bonusLife;

@@ -35,7 +35,7 @@ private:
 	std::unique_ptr<Entity> makeKnight();
 	std::unique_ptr<Entity> makeWizard();
 
-	void levelUp();
+	void eventLevelUp();
 	bool canStageUp();
 
 	void playerRunAction();
