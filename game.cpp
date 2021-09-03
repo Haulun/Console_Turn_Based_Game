@@ -13,11 +13,6 @@ void Game::run() {
 
 //Game Initialization
 void Game::initGame() {
-	stage = 0;
-	turn = 1;
-	deadMob = 0;
-	gameShouldStop = false;
-
 	player = chooseHero();
 }
 
