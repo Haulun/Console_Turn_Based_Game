@@ -1,4 +1,5 @@
 #include "entity.hpp"
+#include "interface.hpp"
 
 //std
 #include <memory>
@@ -9,6 +10,7 @@
 class Game {
 public:
 	void run();
+	~Game() = default;
 private:
 	int stage = 0;
 	int turn = 1;
@@ -18,11 +20,11 @@ private:
 	std::unique_ptr<Entity> player;
 	std::unique_ptr<Entity> enemy;
 
+	Interface interface;
+
 	void initGame();
 	void mainLoop();
 	void TerminateGame();
-
-	void clearConsole();
 
 	std::unique_ptr<Entity> chooseHero();
 	void createNewEnemy();

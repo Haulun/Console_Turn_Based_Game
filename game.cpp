@@ -18,6 +18,7 @@ void Game::initGame() {
 void Game::mainLoop() {
 	while (!gameShouldStop) {
 
+
 		//Replay or not when the player dies :
 		if (player->isDead()) {
 			std::string choice;
@@ -43,12 +44,15 @@ void Game::mainLoop() {
 
 		std::cout << "==========> TOUR " << turn << " <==========" << std::endl << std::endl;
 
-		playerRunAction();
-		enemyChooseAction();
-
 		turn += 1;
 
+
+		playerRunAction();
+		
 		if (!gameShouldStop) {
+
+			enemyChooseAction();
+
 			// Display lives :
 			std::cout << " ENNEMI : " << enemy->getLife() << " points de vie !" << std::endl;
 			std::cout << " VOUS : " << player->getLife() << " points de vie !" << std::endl << std::endl;
@@ -68,10 +72,6 @@ void Game::TerminateGame() {
 }
 
 //OTHER FUNCTIONS
-
-void Game::clearConsole() {
-	std::cout << "\x1B[2J\x1B[H";
-}
 
 std::unique_ptr<Entity> Game::chooseHero() {
 	std::cout << "Choisissez une classe : \n";
@@ -218,14 +218,14 @@ void Game::playerRunAction() {
 	std::cin >> playerInput;
 	std::cout << std::endl;
 	if (playerInput == "a") {
-		clearConsole();
+		interface.clearConsole();
 
 		player->giveDamage(*enemy);
 		std::cout << "[ VOUS => ENNEMI ] Vous attaquez votre ennemi ! " << std::endl;
 		player->incMana(5);
 	}
 	else if (playerInput == "s") {
-		clearConsole();
+		interface.clearConsole();
 
 		player->absorbDamage();
 		std::cout << "[ VOUS => VOUS ] Vous vous defendez. ";
@@ -234,7 +234,7 @@ void Game::playerRunAction() {
 		player->incMana(5);
 	}
 	else if (playerInput == "h") {
-		clearConsole();
+		interface.clearConsole();
 
 
 		if (player->heal()) {
@@ -250,13 +250,13 @@ void Game::playerRunAction() {
 
 	}
 	else if (playerInput == "q") {
-		clearConsole();
+		interface.clearConsole();
 
 		gameShouldStop = true;
 
 	}
 	else {
-		clearConsole();	
+		interface.clearConsole();	
 		std::cout << "Vous ratez votre coup..." << std::endl << std::endl;
 		player->incMana(5);
 		enemy->setShield(1);
