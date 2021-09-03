@@ -4,6 +4,7 @@
 #include <memory>
 #include <iostream>
 #include <stdio.h>
+#include <ctime>
 
 class Game {
 public:
@@ -12,7 +13,6 @@ private:
 	int stage;
 	int turn;
 	int deadMob;
-	bool isEnemyDead;
 	bool gameShouldStop;
 
 	std::unique_ptr<Entity> player;
@@ -35,6 +35,7 @@ private:
 
 	void levelUp();
 
-	void playerChooseAction();
+	void playerRunAction();
 	void enemyChooseAction();
+	void enemyExecuteAction(std::string choice);
 };

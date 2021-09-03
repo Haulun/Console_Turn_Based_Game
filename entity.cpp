@@ -87,22 +87,25 @@ void Entity::incMana(int bonusMana) {
 }
 
 bool Entity::isDead() {
-	if (m_life == 0) {
-		return true;
+	if (this != nullptr) {
+		if (m_life == 0) {
+			Entity::~Entity();
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 	else {
-		return false;
+		return true;
 	}
+	
 }
 
 //Getters :
 
 int Entity::getXp() const {
 	return m_xp;
-}
-
-std::string Entity::getName() const {
-	return m_name;
 }
 
 int Entity::getLife() const {
