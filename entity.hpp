@@ -11,7 +11,7 @@ public:
 		
 	//Constructors and Destructor
 	Entity();
-	Entity(std::string name, int atk, int mana, int m_lifeMax, double shieldMax, int xp);
+	Entity(int atk, int mana, int m_lifeMax, double shieldMax, int xp);
 	~Entity();
 
 	//Basic actions
@@ -34,7 +34,6 @@ public:
 
 	//Getters
 	int getXp() const; 
-	std::string getName() const;
 	int getLife() const;
 	int getLifeMax() const;
 	int getAtk() const;

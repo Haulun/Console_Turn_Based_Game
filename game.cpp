@@ -161,47 +161,43 @@ void Game::handleEnemyDeath() {
 }
 
 std::unique_ptr<Entity> Game::makeTroll(int stage) {
-	std::string name = "Hugue(ette)";
 	int atk = 8 + stage * 2;
 	int manaMax = 80;
 	int lifeMax = 150 + stage * 15;
 	double shieldMax = 0.9 - stage * 0.05;
 	int xp = 30;
 
-	return std::make_unique<Entity>(name, atk, manaMax, lifeMax, shieldMax, xp);
+	return std::make_unique<Entity>(atk, manaMax, lifeMax, shieldMax, xp);
 }
 
 std::unique_ptr<Entity> Game::makeGoblin(int stage) {
-	std::string name = "Michel(le)";
 	int atk = 3 + stage * 1;
 	int manaMax = 80;
 	int lifeMax = 50 + stage * 10;
 	double shieldMax = 0.65 - stage * 0.05;
 	int xp = 10;
 
-	return std::make_unique<Entity>(name, atk, manaMax, lifeMax, shieldMax, xp);
+	return std::make_unique<Entity>(atk, manaMax, lifeMax, shieldMax, xp);
 }
 
 std::unique_ptr<Entity> Game::makeKnight() {
-	std::string name = "Arthur(ette)";
 	int atk = 15;
 	int manaMax = 80;
 	int lifeMax = 100;
 	double shieldMax = 0.6;
 	int xp = 0;
 
-	return std::make_unique<Entity>(name, atk, manaMax, lifeMax, shieldMax, xp);
+	return std::make_unique<Entity>(atk, manaMax, lifeMax, shieldMax, xp);
 }
 
 std::unique_ptr<Entity> Game::makeWizard() {
-	std::string name = "Jean(ne)";
 	int atk = 12;
 	int manaMax = 110;
 	int lifeMax = 80;
 	double shieldMax = 0.6;
 	int xp = 0;
 
-	return std::make_unique<Entity>(name, atk, manaMax, lifeMax, shieldMax, xp);
+	return std::make_unique<Entity>(manaMax, lifeMax, shieldMax, xp);
 }
 
 void Game::levelUp() {
@@ -252,14 +248,14 @@ void Game::playerChooseAction() {
 		clearConsole();
 
 		player->giveDamage(*enemy);
-		std::cout << "[ " << player->getName() << " => " << enemy->getName() << " ] Vous attaquez votre ennemi ! " << std::endl;
+		std::cout << "[ VOUS => ENNEMI ] Vous attaquez votre ennemi ! " << std::endl;
 		player->incMana(5);
 	}
 	else if (playerInput == "s") {
 		clearConsole();
 
 		player->absorbDamage();
-		std::cout << "[ " << player->getName() << " => " << player->getName() << " ] Vous vous defendez. ";
+		std::cout << "[ VOUS => VOUS ] Vous vous defendez. ";
 		std::cout << "Vous prenez " << player->getShield() * 100 << "% des degats totaux !" << std::endl;
 		enemy->setShield(1);
 		player->incMana(5);

@@ -2,8 +2,7 @@
 
 Entity::Entity() {}
 
-Entity::Entity(std::string name, int atk, int manaMax, int lifeMax, double shieldMax, int xp) {
-	m_name = name;
+Entity::Entity(int atk, int manaMax, int lifeMax, double shieldMax, int xp) {
 	m_atk = atk;
 	m_manaMax = manaMax;
 	m_lifeMax = lifeMax;
