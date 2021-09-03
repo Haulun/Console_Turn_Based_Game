@@ -83,7 +83,7 @@ void Entity::incMana(int bonusMana) {
 bool Entity::isDead() {
 	if 	(this != nullptr) {
 		if (m_life == 0) {
-			Entity::~Entity();
+			this->~Entity();
 			return true;
 		}
 		else {
