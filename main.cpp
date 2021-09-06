@@ -28,8 +28,6 @@ int main() {
 			if (choice == "n") {
 				break;
 			}
-
-			game.~Game();
 		}
 	}
 	catch (const std::exception& e) {
