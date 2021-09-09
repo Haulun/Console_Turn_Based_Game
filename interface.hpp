@@ -1,3 +1,6 @@
+#ifndef DEF_INTERFACE
+#define DEF_INTERFACE
+
 #include <iostream>
 #include <stdio.h>
 
@@ -8,3 +11,4 @@ class Interface {
 
 
 };
+#endif

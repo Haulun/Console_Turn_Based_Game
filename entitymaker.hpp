@@ -1,3 +1,6 @@
+#ifndef DEF_ENTITYMAKER
+#define DEF_ENTITYMAKER
+
 #include "entity.hpp"
 
 class EntityMaker {
@@ -16,3 +19,4 @@ private:
 	double shieldMax = 0;
 	int xp = 0;
 };
+#endif

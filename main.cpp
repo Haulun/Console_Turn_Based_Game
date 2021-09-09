@@ -26,11 +26,12 @@ int main() {
 				}
 			} while (choice != "o" && choice != "n");
 			if (choice == "n") {
+				std::cout << std::endl << "INFO : Fermeture du jeu" << std::endl;
 				break;
 			}
 		}
 	}
-	catch (const std::exception& e) {
+	catch (std::runtime_error const& e) {
 		std::cerr << e.what() << std::endl;
 	}
 	return 0;

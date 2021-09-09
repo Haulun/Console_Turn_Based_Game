@@ -19,31 +19,23 @@ void Game::mainLoop() {
 	while (!gameShouldStop) {
 		//Replay or not when the player dies :
 		if (player->isDead()) {
-
-			std::cout << "==========> Vous etes mort <==========" << std::endl;
-			std::cout << "============> Fin du jeu <============" << std::endl << std::endl;
-			std::cout << "Etage atteint : " << stage << std::endl;
-			std::cout << "Niveau atteint : " << player->getLevel() << std::endl;
-			std::cout << "Nombre de mobs tues : " << deadMob << std::endl << std::endl;
-			break;
+			gameShouldStop = true;
 		}
-
-		if (enemy->isDead()) {
-			if (enemy != nullptr) {
-				handleEnemyDeath();
-				createNewEnemy();
+		else {
+			if (enemy->isDead()) {
+				if (enemy != nullptr) {
+					handleEnemyDeath();
+					createNewEnemy();
+				}
+				else {
+					createNewEnemy();
+				}
 			}
-			else {
-				createNewEnemy();
-			}
-		}
 
-		std::cout << "==========> TOUR " << turn << " <==========" << std::endl << std::endl;
-		turn += 1;
+			std::cout << "==========> TOUR " << turn << " <==========" << std::endl << std::endl;
+			turn += 1;
 
-		playerRunAction();
-		
-		if (!gameShouldStop) {
+			playerRunAction();
 
 			enemyRunAction();
 
@@ -52,18 +44,23 @@ void Game::mainLoop() {
 			std::cout << " VOUS : " << player->getLife() << " points de vie !" << std::endl << std::endl;
 
 			std::cout << "INFO : Vous avez actuellement " << player->getMana() << " points de mana" << std::endl << std::endl;
-			
+
 		}
-		else {
-			std::cout << std::endl << "INFO : Fermeture du jeu" << std::endl;
-		}
+
+		
 		
 	}
 }
 
 //Game ends
 void Game::TerminateGame() {
-	gameShouldStop = true;
+	std::cout << "==========> Vous etes mort <==========" << std::endl;
+	std::cout << "============> Fin du jeu <============" << std::endl << std::endl;
+	std::cout << "Etage atteint : " << stage << std::endl;
+	std::cout << "Niveau atteint : " << player->getLevel() << std::endl;
+	std::cout << "Nombre de mobs tues : " << deadMob << std::endl << std::endl;
+
+	//REMPLIR UN FICHIER DE DONNEES
 }
 
 //OTHER FUNCTIONS :
@@ -106,7 +103,7 @@ void Game::createNewEnemy() {
 	}
 	else
 	{
-		std::cout << "Erreur a la creation de l'ennemi" << std::endl;
+		throw std::runtime_error("Impossible de créer l'ennemi");
 	}
 }
 
@@ -231,7 +228,7 @@ void Game::playerDisplayAction(std::string choice, bool actionSuccess) {
 	else if(choice=="q"){
 	} 
 	else {
-		std::cout << "Vous ratez votre coup..." << std::endl << std::endl;
+		std::cout << "INFO : Vous ratez votre coup..." << std::endl << std::endl;
 	}
 	
 }
@@ -239,9 +236,7 @@ void Game::playerDisplayAction(std::string choice, bool actionSuccess) {
 //ENEMY ACTION :
 void Game::enemyRunAction() {
 	std::string choice = enemyChooseAction();
-
 	enemyExecuteAction(choice);
-
 	enemyDisplayAction(choice);
 }
 
@@ -249,15 +244,15 @@ std::string Game::enemyChooseAction() {
 	int random = rand() % 100;
 	// shield
 	if (random < 20 && enemy->getShield() == 1) {
-		return "s";
+		return "s"; //shield
 	}
 	//heal
 	else if (random >= 20 && random < 45 && enemy->healable()) {
-		return "h";
+		return "h"; //heal
 	}
 	// atk
 	else {
-		return "a";
+		return "a"; //atk
 	}
 }
 
@@ -276,7 +271,7 @@ void Game::enemyExecuteAction(std::string choice) {
 		player->resetShield();
 	}
 	else {
-		std::cout << "ERREUR EXECUTION ENNEMI" << std::endl;
+		throw std::runtime_error("Impossible d'executer l'action de l'ennemi");
 	}	
 
 }
@@ -294,7 +289,7 @@ void Game::enemyDisplayAction(std::string choice) {
 		std::cout << "[ ENNEMI <= ENNEMI ] L'ennemi se soigne !" << std::endl << std::endl;
 	}
 	else{
-		std::cout << "ERREUR AFFICHAGE ENNEMI" << std::endl;
+		throw std::runtime_error("Impossible d'afficher l'action");
 	}		
 
 }

@@ -1,3 +1,6 @@
+#ifndef DEF_GAME
+#define DEF_GAME
+
 #include "entity.hpp"
 #include "entitymaker.hpp"
 #include "interface.hpp"
@@ -52,3 +55,5 @@ private:
 	void enemyExecuteAction(std::string choice);
 	void enemyDisplayAction(std::string choice);
 };
+
+#endif
