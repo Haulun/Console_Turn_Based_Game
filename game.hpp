@@ -19,11 +19,10 @@ public:
 	void run();
 	~Game() = default;
 private:
+	std::map<std::string, int> stats = { {"stage", 0}, {"deadMob", 0}, {"level", 0} };
 
 	//Variables :
-	int stage = 0;
 	int turn = 1;
-	int deadMob = 0;
 	bool gameShouldStop = false;
 
 	std::unique_ptr<Entity> player;

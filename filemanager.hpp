@@ -3,13 +3,14 @@
 
 #include <map>
 #include <fstream>
+#include <string>
 
 class FileManager {
 public:
 
 	~FileManager() = default;
     
-    void setScore(std::map<std::string, int> currentScore);
+    void setScore(std::map<std::string, int> stats);
 
 private:
     std::map<std::string, int> readLastScore();

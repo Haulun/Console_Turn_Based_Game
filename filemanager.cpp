@@ -1,11 +1,11 @@
 #include "filemanager.hpp"
 
-void FileManager::setScore(std::map<std::string, int> currentScores)
+void FileManager::setScore(std::map<std::string, int> stats)
 {
 
 	std::map<std::string, int> lastScores = readLastScore();
 
-	writeNewScore(lastScores, currentScores);
+	writeNewScore(lastScores, stats);
 }
 
 
@@ -13,7 +13,7 @@ void FileManager::setScore(std::map<std::string, int> currentScores)
 std::map<std::string, int> FileManager::readLastScore()
 {
 	std::map<std::string, int> res;
-	std::ifstream lastScores {"score.txt"};
+	std::ifstream lastScores {"scores.txt"};
 	std::string line;
 
 	while (getline(lastScores, line))
@@ -28,25 +28,33 @@ std::map<std::string, int> FileManager::readLastScore()
 }
 
 // write new score 
-void FileManager::writeNewScore(std::map<std::string, int> lastScores, std::map<std::string, int> currentScores)
+void FileManager::writeNewScore(std::map<std::string, int> lastScores, std::map<std::string, int> stats)
 {
- 	std::ofstream fileNewScores {"score.txt"};
+ 	std::ofstream fileNewScores {"scores.txt"};
 
     std::string stringNewScore;
     
-    std::map<std::string, int>::iterator it = lastScores.begin();
+    std::map<std::string, int>::iterator it = stats.begin();
     
-    for(it; it != lastScores.end(); it++) {
+    for(it; it != stats.end(); it++) {
 
         std::string param = it->first;
         
-        if(lastScores[param] >= currentScores[param])
-        {
-            stringNewScore += param + "=" + std::to_string(lastScores[param]) +"\n";
-        } 
-        else {
-            stringNewScore += param + "=" + std::to_string(currentScores[param]) + "\n";
+        if (lastScores.contains(param)) {
+            if (lastScores[param] <= stats[param]) {
+                stringNewScore += param + "=" + std::to_string(stats[param]);
+            }
+            else {
+                stringNewScore += param + "=" + std::to_string(lastScores[param]);
+            }
         }
+        else
+        {
+            throw std::runtime_error("Un paramètre manque dans le fichier scores.txt");
+        }
+
+
+       
     }
 
     fileNewScores << stringNewScore;

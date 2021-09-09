@@ -65,38 +65,15 @@ void Game::TerminateGame()
 	std::cout << "==========> Vous etes mort <==========" << std::endl;
 	std::cout << "============> Fin du jeu <============" << std::endl
 			  << std::endl;
-	std::cout << "Etage atteint : " << stage << std::endl;
+	std::cout << "Etage atteint : " << stats["stage"] << std::endl;
 	std::cout << "Niveau atteint : " << player->getLevel() << std::endl;
-	std::cout << "Nombre de mobs tues : " << deadMob << std::endl
-			  << std::endl;
+	std::cout << "Nombre de mobs tues : " << stats["deadMob"] << std::endl;
 
 	//REMPLIR UN FICHIER DE DONNEES
 
-	// setScore();
+	FileManager fileManager;
+	fileManager.setScore(stats);
 }
-
-
-
-	// void Game::storeScore() {
-
-	// 	std::ifstream lastScores {"score.txt"};
-	// 	std::string line;
-
-	// 	std::string stringNewScore;
-
-	// 	while(getline(lastScores, line)) {
-	// 		std::size_t pos = line.find("=");
-	// 		std::string param = line.substr(0,pos);
-	// 		int lastValue = std::stoi(line.substr(pos+1));
-	// 		if(param == "recordExample" && lastValue < deadMob) {
-	// 			stringNewScore << param << "=" << deadMob;
-	// 		}
-	// 	}
-
-	// 	std::ofstream newScore {"score.txt"};
-
-	// 	newScore << stringNewScore;
-
 
 //OTHER FUNCTIONS :
 
@@ -143,14 +120,14 @@ void Game::createNewEnemy()
 	int category = rand() % 100;
 	if (category < 35)
 	{
-		enemy = entityMaker.makeTroll(stage);
+		enemy = entityMaker.makeTroll(stats["stage"]);
 		std::cout << "/!\\ Attention, un Troll apparait /!\\\n"
 				  << std::endl;
 		;
 	}
 	else if (category >= 35)
 	{
-		enemy = entityMaker.makeGoblin(stage);
+		enemy = entityMaker.makeGoblin(stats["stage"]);
 		std::cout << "/!\\ Attention, un Gobelin apparait /!\\\n"
 				  << std::endl;
 	}
@@ -167,7 +144,7 @@ void Game::handleEnemyDeath()
 
 	std::cout << std::endl
 			  << "INFO : Votre ennemi est mort dans d'atroces souffrances !" << std::endl;
-	deadMob += 1;
+	stats["deadMob"] += 1;
 	std::cout << "INFO : Vous avez actuellement " << player->getXp() << " points d'experience" << std::endl
 			  << std::endl;
 
@@ -177,7 +154,7 @@ void Game::handleEnemyDeath()
 
 		if (canStageUp())
 		{
-			stage += 1;
+			stats["stage"] += 1;
 			std::cout << "INFO : Bravo ! Vous passez � l'etage suivant" << std::endl
 					  << std::endl;
 		}
@@ -206,6 +183,7 @@ void Game::eventLevelUp()
 		}
 	}
 	player->levelUp(playerInput);
+	stats["level"]++;
 }
 
 bool Game::canStageUp()
