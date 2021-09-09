@@ -10,6 +10,8 @@
 #include <iostream>
 #include <stdio.h>
 #include <ctime>
+#include <fstream>
+#include <vector>
 
 class Game {
 public:
@@ -34,7 +36,7 @@ private:
 	void mainLoop();
 	void TerminateGame();
 
-	//j'aime les pâtes
+	//j'aime les pï¿½tes
 	std::unique_ptr<Entity> chooseHero();
 	void createNewEnemy();
 	void handleEnemyDeath();
