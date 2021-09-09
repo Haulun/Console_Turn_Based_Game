@@ -4,6 +4,7 @@
 #include "entity.hpp"
 #include "entitymaker.hpp"
 #include "interface.hpp"
+#include "filemanager.hpp"
 
 //std
 #include <memory>

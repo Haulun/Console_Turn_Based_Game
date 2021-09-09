@@ -1,11 +1,11 @@
 #include "filemanager.hpp"
 
-void FileManager::setScore()
+void FileManager::setScore(std::map<std::string, int> currentScores)
 {
 
 	std::map<std::string, int> lastScores = readLastScore();
 
-	writeNewScore(lastScores);
+	writeNewScore(lastScores, currentScores);
 }
 
 
@@ -28,17 +28,27 @@ std::map<std::string, int> FileManager::readLastScore()
 }
 
 // write new score 
-void FileManager::writeNewScore(std::map<std::string, int> lastScores, std::map<std::string, int> newScores)
+void FileManager::writeNewScore(std::map<std::string, int> lastScores, std::map<std::string, int> currentScores)
 {
- 	std::ofstream newScores {"score.txt"};
+ 	std::ofstream fileNewScores {"score.txt"};
+
+    std::string stringNewScore;
     
     std::map<std::string, int>::iterator it = lastScores.begin();
     
-    std::map<std::string, int> newScores;
-
     for(it; it != lastScores.end(); it++) {
 
+        std::string param = it->first;
+        
+        if(lastScores[param] >= currentScores[param])
+        {
+            stringNewScore += param + "=" + std::to_string(lastScores[param]) +"\n";
+        } 
+        else {
+            stringNewScore += param + "=" + std::to_string(currentScores[param]) + "\n";
+        }
     }
 
-}
+    fileNewScores << stringNewScore;
 
+}
