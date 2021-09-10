@@ -33,24 +33,23 @@ void FileManager::writeNewScore(std::map<std::string, int> lastScores, std::map<
  	std::ofstream fileNewScores {"scores.txt"};
 
     std::string stringNewScore;
-    
-    std::map<std::string, int>::iterator it = stats.begin();
-    
-    for(it; it != stats.end(); it++) {
+        
+    for(auto it = stats.begin(); it != stats.end(); it++) {
 
         std::string param = it->first;
         
         if (lastScores.contains(param)) {
             if (lastScores[param] <= stats[param]) {
-                stringNewScore += param + "=" + std::to_string(stats[param]);
+                stringNewScore += param + "=" + std::to_string(stats[param]) + "\n";
             }
             else {
-                stringNewScore += param + "=" + std::to_string(lastScores[param]);
+                stringNewScore += param + "=" + std::to_string(lastScores[param]) + "\n";
             }
         }
         else
         {
-            throw std::runtime_error("Un paramètre manque dans le fichier scores.txt");
+            stringNewScore += param + "=" + std::to_string(stats[param]) + "\n";
+            // throw std::runtime_error("Un paramï¿½tre manque dans le fichier scores.txt");
         }
 
 
