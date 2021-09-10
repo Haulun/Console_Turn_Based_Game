@@ -13,10 +13,10 @@ public:
 	std::unique_ptr<Entity> makeKnight();
 	std::unique_ptr<Entity> makeWizard();
 private:
-	int atk = 0;
-	int manaMax = 0;
-	int lifeMax = 0;
-	double shieldMax = 0;
-	int xp = 0;
+	int m_atk = 0;
+	int m_manaMax = 0;
+	int m_lifeMax = 0;
+	double m_shieldMax = .0;
+	int m_xp = 0;
 };
 #endif
