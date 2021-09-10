@@ -1,3 +1,0 @@
-Score_KilledMob=0
-Score_Level=0
-Score_Stage=0
