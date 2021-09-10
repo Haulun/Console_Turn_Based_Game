@@ -19,7 +19,9 @@ std::map<std::string, int> FileManager::readLastScore()
 	while (getline(lastScores, line))
 	{
         std::size_t pos = line.find("=");
-		std::string param = line.substr(0, pos);
+        if(pos == std::string::npos) continue;
+
+    	std::string param = line.substr(0, pos);
 		int lastValue = std::stoi(line.substr(pos + 1));
 
         res[param] = lastValue;
