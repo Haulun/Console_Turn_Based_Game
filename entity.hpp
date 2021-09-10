@@ -49,15 +49,15 @@ public:
 
 
 protected:
-	int m_life = 100;
-	double m_shield = 0;
-	int m_atk = 10;
-	int m_mana = 100;
-	int m_lifeMax = 100;
-	double m_shieldMax = 0;
-	int m_xp = 0;
-	int m_level = 0;
-	int m_manaMax = 100;
+	int m_life;
+	double m_shield;
+	int m_atk;
+	int m_mana;
+	int m_lifeMax;
+	double m_shieldMax;
+	int m_xp;
+	int m_level;
+	int m_manaMax;
 	};
 
 #endif

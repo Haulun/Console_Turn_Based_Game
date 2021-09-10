@@ -4,23 +4,25 @@
 #include "entity.hpp"
 #include "entitymaker.hpp"
 #include "interface.hpp"
+#include "filemanager.hpp"
 
 //std
 #include <memory>
 #include <iostream>
 #include <stdio.h>
 #include <ctime>
+#include <fstream>
+#include <vector>
 
 class Game {
 public:
 	void run();
 	~Game() = default;
 private:
+	std::map<std::string, int> stats = { {"stage", 0}, {"deadMob", 0}, {"level", 0} };
 
 	//Variables :
-	int stage = 0;
 	int turn = 1;
-	int deadMob = 0;
 	bool gameShouldStop = false;
 
 	std::unique_ptr<Entity> player;
@@ -34,7 +36,7 @@ private:
 	void mainLoop();
 	void TerminateGame();
 
-	//j'aime les pâtes
+	//j'aime les pï¿½tes
 	std::unique_ptr<Entity> chooseHero();
 	void createNewEnemy();
 	void handleEnemyDeath();
