@@ -1,3 +1,7 @@
+<<<<<<< HEAD
 
+=======
+deadMob=1
+>>>>>>> 48_store_score_in_a_file
 level=0
 stage=0
