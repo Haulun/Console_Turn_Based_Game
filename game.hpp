@@ -19,7 +19,7 @@ public:
 	void run();
 	~Game() = default;
 private:
-	std::map<std::string, int> stats = { {"Score_Stage", 6}, {"Score_KilledMob", 0}, {"Score_Level", 0} };
+	std::map<std::string, int> stats = { {"Score_Stage", 0}, {"Score_KilledMob", 0}, {"Score_Level", 0} };
 
 	//Variables :
 	int turn = 1;
