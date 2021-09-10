@@ -19,7 +19,7 @@ public:
 	void run();
 	~Game() = default;
 private:
-	std::map<std::string, int> stats = { {"Score_Stage", 0}, {"Score_KilledMob", 0}, {"Score_Level", 0} };
+	std::map<std::string, int> stats = { {"Score_Stage", 6}, {"Score_KilledMob", 0}, {"Score_Level", 0} };
 
 	//Variables :
 	int turn = 1;
@@ -49,7 +49,7 @@ private:
 	void playerRunAction();
 	std::string playerChooseAction();
 	bool playerExecuteAction(std::string choice);
-	void playerDisplayAction(std::string choice, bool actionSuccess);
+	void playerDisplayAction(std::string choice, bool const& actionSuccess);
 
 	//Enemy actions :
 	void enemyRunAction();

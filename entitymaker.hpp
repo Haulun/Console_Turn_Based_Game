@@ -7,11 +7,12 @@ class EntityMaker {
 public:
 
 	~EntityMaker() = default;
-
+	
 	std::unique_ptr<Entity> makeTroll(int const stage);
 	std::unique_ptr<Entity> makeGoblin(int const stage);
 	std::unique_ptr<Entity> makeKnight();
 	std::unique_ptr<Entity> makeWizard();
+	std::unique_ptr<Entity> makeDragon();
 private:
 	int m_atk = 0;
 	int m_manaMax = 0;

@@ -39,3 +39,13 @@ std::unique_ptr<Entity> EntityMaker::makeWizard() {
 
 	return std::make_unique<Entity>(m_atk, m_manaMax, m_lifeMax, m_shieldMax, m_xp);
 }
+
+std::unique_ptr<Entity> EntityMaker::makeDragon() {
+	m_atk = 25;
+	m_manaMax = 0;
+	m_lifeMax = 500;
+	m_shieldMax = 0.1;
+	m_xp = 0;
+
+	return std::make_unique<Entity>(m_atk, m_manaMax, m_lifeMax, m_shieldMax, m_xp);
+}

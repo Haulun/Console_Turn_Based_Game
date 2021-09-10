@@ -62,16 +62,16 @@ void Game::mainLoop()
 //Game ends
 void Game::TerminateGame()
 {
-	std::cout << "==========> Vous etes mort <==========" << std::endl;
-	std::cout << "============> Fin du jeu <============" << std::endl
-			  << std::endl;
-	std::cout << "Etage atteint : " << stats["Score_Stage"] << std::endl;
-	std::cout << "Niveau atteint : " << player->getLevel() << std::endl;
-	std::cout << "Nombre de mobs tues : " << stats["Score_KilledMob"] << std::endl;
+	std::cout << "==========> Vous etes mort <==========\n";
+	std::cout << "============> Fin du jeu <============\n\n";
+	std::cout << "Etage atteint : " << stats["Score_Stage"] << '\n';
+	std::cout << "Niveau atteint : " << player->getLevel() << '\n';
+	std::cout << "Nombre de mobs tues : " << stats["Score_KilledMob"] << "\n\n";
 
 	//REMPLIR UN FICHIER DE DONNEES
 
 	FileManager fileManager;
+	std::cout << "INFO : (Re)ecriture de votre meilleur score dans score.txt\n";
 	fileManager.setScore(stats);
 }
 
@@ -81,8 +81,7 @@ std::unique_ptr<Entity> Game::chooseHero()
 {
 	std::cout << "Choisissez une classe : \n";
 	std::cout << " - \"w\" pour Mage \n";
-	std::cout << " - \"k\" pour Knight" << std::endl
-			  << std::endl;
+	std::cout << " - \"k\" pour Knight\n\n";
 
 	std::string choice;
 
@@ -94,42 +93,42 @@ std::unique_ptr<Entity> Game::chooseHero()
 		if (choice != "w" && choice != "k")
 		{
 			std::cout << std::endl
-					  << "Caractere non valide" << std::endl
-					  << std::endl;
+					  << "Caractere non valide\n\n"
 		}
 	} while (choice != "w" && choice != "k");
 
 	if (choice == "w")
 	{
 		std::cout << std::endl
-				  << "Vous avez choisi Jean(ne) le mage !" << std::endl
-				  << std::endl;
+				  << "Vous avez choisi Jean(ne) le mage !\n\n";
 		return entityMaker.makeWizard();
 	}
 	else
 	{
-		std::cout << std::endl
-				  << "Vous avez choisi Arthure(ette) le chevalier !" << std::endl
-				  << std::endl;
+		std::cout << "\nVous avez choisi Arthure(ette) le chevalier !\n\n";
 		return entityMaker.makeKnight();
 	}
 }
 
 void Game::createNewEnemy()
 {
+	int stage = stats["Score_Stage"];
 	int category = rand() % 100;
-	if (category < 35)
+	if (category < 35 && stage < 6)
 	{
-		enemy = entityMaker.makeTroll(stats["Score_Stage"]);
-		std::cout << "/!\\ Attention, un Troll apparait /!\\\n"
-				  << std::endl;
+		enemy = entityMaker.makeTroll(stage);
+		std::cout << "/!\\ Attention, un Troll apparait /!\\\n\n";
 		;
 	}
-	else if (category >= 35)
+	else if (category >= 35 && stage < 6)
 	{
-		enemy = entityMaker.makeGoblin(stats["Score_Stage"]);
-		std::cout << "/!\\ Attention, un Gobelin apparait /!\\\n"
-				  << std::endl;
+		enemy = entityMaker.makeGoblin(stage);
+		std::cout << "/!\\ Attention, un Gobelin apparait /!\\\n\n";
+	}
+	else if (stage == 6) 
+	{
+		enemy = entityMaker.makeDragon();
+		std::cout << R"(/!\ ATTENTION, UN IMMENSE DRAGON APPARAIT /!\)" << "\n\n";
 	}
 	else
 	{
@@ -143,10 +142,9 @@ void Game::handleEnemyDeath()
 	leveledUp = player->takeXp(enemy);
 
 	std::cout << std::endl
-			  << "INFO : Votre ennemi est mort dans d'atroces souffrances !" << std::endl;
+			  << "INFO : Votre ennemi est mort dans d'atroces souffrances !\n";
 	stats["Score_KilledMob"] += 1;
-	std::cout << "INFO : Vous avez actuellement " << player->getXp() << " points d'experience" << std::endl
-			  << std::endl;
+	std::cout << "INFO : Vous avez actuellement " << player->getXp() << " points d'experience \n\n";
 
 	if (leveledUp == true)
 	{
@@ -154,9 +152,14 @@ void Game::handleEnemyDeath()
 
 		if (canStageUp())
 		{
-			stats["Score_Stage"] += 1;
-			std::cout << "INFO : Bravo ! Vous passez a l'etage suivant" << std::endl
-					  << std::endl;
+			if (stats["Score_Stage"] == 6) {
+				
+			}
+			else {
+				stats["Score_Stage"] += 1;
+				std::cout << "INFO : Bravo ! Vous passez a l'etage suivant\n\n";
+			}
+					 
 		}
 	}
 }
@@ -256,7 +259,7 @@ bool Game::playerExecuteAction(std::string choice)
 	return actionSuccess;
 }
 
-void Game::playerDisplayAction(std::string choice, bool actionSuccess)
+void Game::playerDisplayAction(std::string choice, bool const& actionSuccess)
 {
 
 	interface.clearConsole();

@@ -12,9 +12,9 @@ int main() {
 			game.run();
 
 			std::string choice;
-			std::cout << "Voulez-vous faire une partie: " << std::endl;
-			std::cout << "	- \"o\" pour oui" << std::endl;
-			std::cout << "	- \"n\" pour non" << std::endl << std::endl;;
+			std::cout << "Voulez-vous faire une partie: \n";
+			std::cout << "	- \"o\" pour oui \n";
+			std::cout << "	- \"n\" pour non \n\n";
 
 			std::cout << "Votre choix : ";
 
@@ -22,11 +22,11 @@ int main() {
 				std::cin >> choice;
 
 				if (choice != "o" && choice != "n") {
-					std::cout << "Caractere non valide ! Veuillez reessayer\n" << std::endl;
+					std::cout << "Caractere non valide ! Veuillez reessayer\n\n";
 				}
 			} while (choice != "o" && choice != "n");
 			if (choice == "n") {
-				std::cout << std::endl << "INFO : Fermeture du jeu" << std::endl;
+				std::cout << std::endl << "INFO : Fermeture du jeu\n";
 				break;
 			}
 		}
