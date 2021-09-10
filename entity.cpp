@@ -1,7 +1,6 @@
 #include "entity.hpp"
 
-Entity::Entity(int atk, int manaMax, int lifeMax, double shieldMax, int xp) : 
-m_life(lifeMax), m_shield(1.0), m_atk(atk), m_mana(manaMax), m_lifeMax(lifeMax), m_shieldMax(shieldMax), m_xp(xp), m_level(0),  m_manaMax(manaMax) {}
+Entity::Entity(int atk, int manaMax, int lifeMax, double shieldMax, int xp, std::string type) : m_life(lifeMax), m_shield(1.0), m_atk(atk), m_mana(manaMax), m_lifeMax(lifeMax), m_shieldMax(shieldMax), m_xp(xp), m_level(0),  m_manaMax(manaMax), m_type(type) {}
 
 void Entity::giveDamage(Entity& aim) const {
 	aim.takeDamage(m_atk);
@@ -76,19 +75,13 @@ void Entity::incMana(int bonusMana) {
 }
 
 bool Entity::isDead() {
-	if (this != nullptr) {
-		if (m_life == 0) {
-			this->~Entity();
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-	else {
+	if (m_life == 0) {
+		this->~Entity();
 		return true;
 	}
-	
+	else {
+		return false;
+	}
 }
 
 bool Entity::healable() {
@@ -125,3 +118,6 @@ int Entity::getLevel() const{
 	return m_level;
 }
 
+std::string Entity::getType() const {
+	return m_type;
+}

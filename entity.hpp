@@ -12,7 +12,7 @@ public:
 		
 	//Constructors and Destructor
 	Entity() = default;
-	Entity(int atk, int mana, int m_lifeMax, double shieldMax, int xp);
+	Entity(int atk, int mana, int m_lifeMax, double shieldMax, int xp, std::string type);
 	~Entity() = default;
 
 	//Basic actions
@@ -45,7 +45,7 @@ public:
 	double getShield() const;
 	int getMana() const;
 	int getLevel() const;
-
+	std::string getType() const;
 
 
 protected:
@@ -58,6 +58,7 @@ protected:
 	int m_xp;
 	int m_level;
 	int m_manaMax;
+	std::string m_type;
 	};
 
 #endif

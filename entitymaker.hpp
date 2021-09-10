@@ -19,5 +19,6 @@ private:
 	int m_lifeMax = 0;
 	double m_shieldMax = .0;
 	int m_xp = 0;
+	std::string m_type = "";
 };
 #endif
