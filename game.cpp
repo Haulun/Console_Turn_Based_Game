@@ -75,9 +75,9 @@ void Game::TerminateGame()
 	std::cout << "==========> Vous etes mort <==========" << std::endl;
 	std::cout << "============> Fin du jeu <============" << std::endl
 			  << std::endl;
-	std::cout << "Etage atteint : " << stats["stage"] << std::endl;
+	std::cout << "Etage atteint : " << stats["Score_Stage"] << std::endl;
 	std::cout << "Niveau atteint : " << player->getLevel() << std::endl;
-	std::cout << "Nombre de mobs tues : " << stats["deadMob"] << std::endl;
+	std::cout << "Nombre de mobs tues : " << stats["Score_KilledMob"] << std::endl;
 
 	//REMPLIR UN FICHIER DE DONNEES
 
@@ -130,20 +130,20 @@ void Game::createNewEnemy()
 	int category = rand() % 100;
 	if (category < 35)
 	{
-		enemy = entityMaker.makeTroll(stats["stage"]);
+		enemy = entityMaker.makeTroll(stats["Score_Stage"]);
 		std::cout << "/!\\ Attention, un Troll apparait /!\\\n"
 				  << std::endl;
 		;
 	}
 	else if (category >= 35)
 	{
-		enemy = entityMaker.makeGoblin(stats["stage"]);
+		enemy = entityMaker.makeGoblin(stats["Score_Stage"]);
 		std::cout << "/!\\ Attention, un Gobelin apparait /!\\\n"
 				  << std::endl;
 	}
 	else
 	{
-		throw std::runtime_error("Impossible de cr�er l'ennemi");
+		throw std::runtime_error("Impossible de creer l'ennemi");
 	}
 }
 
@@ -154,7 +154,7 @@ void Game::handleEnemyDeath()
 
 	std::cout << std::endl
 			  << "INFO : Votre ennemi est mort dans d'atroces souffrances !" << std::endl;
-	stats["deadMob"] += 1;
+	stats["Score_KilledMob"] += 1;
 	std::cout << "INFO : Vous avez actuellement " << player->getXp() << " points d'experience" << std::endl
 			  << std::endl;
 
@@ -164,8 +164,8 @@ void Game::handleEnemyDeath()
 
 		if (canStageUp())
 		{
-			stats["stage"] += 1;
-			std::cout << "INFO : Bravo ! Vous passez � l'etage suivant" << std::endl
+			stats["Score_Stage"] += 1;
+			std::cout << "INFO : Bravo ! Vous passez a l'etage suivant" << std::endl
 					  << std::endl;
 		}
 	}
@@ -193,7 +193,7 @@ void Game::eventLevelUp()
 		}
 	}
 	player->levelUp(playerInput);
-	stats["level"]++;
+	stats["Score_Level"]++;
 }
 
 bool Game::canStageUp()

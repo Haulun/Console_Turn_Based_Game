@@ -19,15 +19,17 @@ std::map<std::string, int> FileManager::readLastScore()
 	while (getline(lastScores, line))
 	{
         std::size_t pos = line.find("=");
-        if(pos == std::string::npos) continue; // case empty line
-		std::string param = line.substr(0, pos);
+        if(pos == std::string::npos) continue;
+
+    	std::string param = line.substr(0, pos);
 		int lastValue = std::stoi(line.substr(pos + 1));
+
         res[param] = lastValue;
 	}
     return res;
 }
 
-// write new score if new score
+// write new score 
 void FileManager::writeNewScore(std::map<std::string, int>& lastScores, std::map<std::string, int>& stats)
 {
  	std::ofstream fileNewScores {"scores.txt"};
