@@ -26,7 +26,7 @@ std::map<std::string, int> FileManager::readLastScore()
     return res;
 }
 
-// write new score 
+// write new score if new score
 void FileManager::writeNewScore(std::map<std::string, int>& lastScores, std::map<std::string, int>& stats)
 {
  	std::ofstream fileNewScores {"scores.txt"};
