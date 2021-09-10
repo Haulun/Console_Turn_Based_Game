@@ -15,13 +15,14 @@ std::map<std::string, int> FileManager::readLastScore()
 	std::map<std::string, int> res;
 	std::ifstream lastScores {"scores.txt"};
 	std::string line;
+    int lastValue;
 
 	while (getline(lastScores, line))
 	{
-        std::size_t pos = line.find("=");
-		std::string param = line.substr(0, pos);
-		int lastValue = std::stoi(line.substr(pos + 1));
-        res[param] = lastValue;
+            std::size_t pos = line.find("=");
+            std::string param = line.substr(0, pos);
+            lastValue = std::stoi(line.substr(pos + 1));
+            res[param] = lastValue;
 	}
     return res;
 }
@@ -31,7 +32,7 @@ void FileManager::writeNewScore(std::map<std::string, int>& lastScores, std::map
 {
  	std::ofstream fileNewScores {"scores.txt"};
 
-    std::string stringNewScore;
+    std::string stringNewScore = "";
         
     for(auto it = stats.begin(); it != stats.end(); it++) {
 
@@ -50,11 +51,7 @@ void FileManager::writeNewScore(std::map<std::string, int>& lastScores, std::map
             stringNewScore += param + "=" + std::to_string(stats[param]) + "\n";
             // throw std::runtime_error("Un param�tre manque dans le fichier scores.txt");
         }
-
-
-       
     }
-
     fileNewScores << stringNewScore;
 
 }
