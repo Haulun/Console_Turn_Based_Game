@@ -1,6 +1,6 @@
 #include "filemanager.hpp"
 
-void FileManager::setScore(std::map<std::string, int> stats)
+void FileManager::setScore(std::map<std::string, int>& stats)
 {
 
 	std::map<std::string, int> lastScores = readLastScore();
@@ -21,14 +21,13 @@ std::map<std::string, int> FileManager::readLastScore()
         std::size_t pos = line.find("=");
 		std::string param = line.substr(0, pos);
 		int lastValue = std::stoi(line.substr(pos + 1));
-
         res[param] = lastValue;
 	}
     return res;
 }
 
 // write new score 
-void FileManager::writeNewScore(std::map<std::string, int> lastScores, std::map<std::string, int> stats)
+void FileManager::writeNewScore(std::map<std::string, int>& lastScores, std::map<std::string, int>& stats)
 {
  	std::ofstream fileNewScores {"scores.txt"};
 

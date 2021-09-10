@@ -10,11 +10,11 @@ public:
 
 	~FileManager() = default;
     
-    void setScore(std::map<std::string, int> stats);
+    void setScore(std::map<std::string, int>& stats);
 
 private:
     std::map<std::string, int> readLastScore();
-	void writeNewScore(std::map<std::string, int> lastScore , std::map<std::string, int> currentScore );
+	void writeNewScore(std::map<std::string, int>& lastScore , std::map<std::string, int>& currentScore );
 	
 
 };
