@@ -27,18 +27,28 @@ void Game::mainLoop()
 		}
 		else
 		{
-			if (enemy->isDead())
-			{
-				if (enemy != nullptr)
-				{
-					handleEnemyDeath();
-					createNewEnemy();
-				}
-				else
-				{
-					createNewEnemy();
-				}
+			if(enemy.get() == nullptr) {
+				createNewEnemy();
 			}
+
+			if(enemy->isDead()) {
+				handleEnemyDeath();
+				createNewEnemy();
+			}
+
+			// if (enemy->isDead())
+			// {
+			// 	if (enemy != nullptr)
+			// 	{
+			// 		handleEnemyDeath();
+			// 		createNewEnemy();
+			// 	}
+			// 	else
+			// 	{
+			// 		createNewEnemy();
+			// 	}
+			// }
+			
 
 			std::cout << "==========> TOUR " << turn << " <==========" << std::endl
 					  << std::endl;

@@ -76,19 +76,13 @@ void Entity::incMana(int bonusMana) {
 }
 
 bool Entity::isDead() {
-	if (this != nullptr) {
-		if (m_life == 0) {
-			this->~Entity();
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-	else {
+	if (m_life == 0) {
+		this->~Entity();
 		return true;
 	}
-	
+	else {
+		return false;
+	}
 }
 
 bool Entity::healable() {
